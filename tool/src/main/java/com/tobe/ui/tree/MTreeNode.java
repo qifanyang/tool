@@ -1,6 +1,8 @@
 package com.tobe.ui.tree;
 
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -9,7 +11,9 @@ import javax.swing.tree.TreePath;
 
 public class MTreeNode extends DefaultMutableTreeNode {
 
+	
 	private static final long serialVersionUID = 1L;
+	private Map<String, Object>  map = new HashMap<String, Object>();
 	public MTreeNode(String substring) {
 		super(substring);
 	}
@@ -35,5 +39,13 @@ public class MTreeNode extends DefaultMutableTreeNode {
         } else {
             tree.collapsePath(parent);
         }
+    }
+    
+    public Object get(String key){
+    	return map.get(key);
+    }
+    
+	public void put(String key, Object obj){
+    	map.put(key, obj);
     }
 }

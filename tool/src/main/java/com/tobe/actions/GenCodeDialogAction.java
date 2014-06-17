@@ -1,6 +1,7 @@
 package com.tobe.actions;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,15 +15,18 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.TitledBorder;
 
+import com.tobe.handler.GenCodeHandler;
+import com.tobe.main.ActionContext;
 import com.tobe.main.MainFrame;
 
 /**
  * 生成代码
  *
  */
-public class GenCodeAction implements ActionListener {
+public class GenCodeDialogAction implements ActionListener {
 
-	private JDialog dialog;
+	private static JDialog dialog;
+	private static ActionContext context;
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -71,7 +75,16 @@ public class GenCodeAction implements ActionListener {
 	}
 
 	
-	
+	public ActionContext getContext() {
+		return context;
+	}
+
+	public void setContext(ActionContext context) {
+		this.context = context;
+	}
+
+
+
 	static class OptionPanel extends JPanel{
 		private static final long serialVersionUID = 1L;
 		TitledBorder border;
@@ -95,17 +108,35 @@ public class GenCodeAction implements ActionListener {
 		    
 		    
 		    JButton ok = new JButton("确定");
-		    JButton cacel = new JButton("取消");
+		    JButton cancel = new JButton("取消");
 		    JPanel btnPanel = new JPanel();
 //		    btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.X_AXIS));
 		    btnPanel.add(ok);
-		    btnPanel.add(cacel);
+		    btnPanel.add(cancel);
 		
 		    
-		    JLabel label = new JLabel("	消息文件    com.game.message.pool.MessagePool");
+		    JLabel label = new JLabel("消息文件    com.game.message.pool.MessagePool");
 		    add(label, BorderLayout.NORTH);
 		    add(selectPanel, BorderLayout.CENTER);
 		    add(btnPanel, BorderLayout.SOUTH);
+		    
+		    ok.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					GenCodeHandler handler = new GenCodeHandler();
+					handler.action(context, msgCB.isSelected(), handlerCB.isSelected(), beanCB.isSelected());
+					dialog.dispose();
+				}
+			});
+		    
+		    cancel.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					dialog.dispose();
+				}
+			});
 		}
 	}
 }

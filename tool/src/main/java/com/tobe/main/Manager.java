@@ -50,14 +50,16 @@ public class Manager {
 	                for (File child : children) {
 	                    if (child.isDirectory()) {
 	                    	MTreeNode node = new MTreeNode(child.getAbsolutePath().substring(path.length() + 1));
+	                    	node.put("file", child);
 	                        currentNode.add(node);
 	                        currentNode = node;
 	                        loadDirectory(child.getAbsolutePath(), Filters.DIR_XML_FILTER);
 
 	                    } else {
 //	                        root.add(new DefaultMutableTreeNode(child.getAbsolutePath().substring(rootPath.length() + 1)));
-
-	                        currentNode.add(new MTreeNode(child.getAbsolutePath().substring(path.length() + 1)));
+	                    	MTreeNode mTreeNode = new MTreeNode(child.getAbsolutePath().substring(path.length() + 1));
+	                    	mTreeNode.put("file", child);
+	                        currentNode.add(mTreeNode);
 	                    }
 	                }
 	                currentNode = (MTreeNode) currentNode.getParent();

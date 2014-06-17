@@ -14,7 +14,9 @@ import javax.swing.JTree;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
-import com.tobe.actions.GenCodeAction;
+import com.tobe.actions.GenCodeDialogAction;
+import com.tobe.config.CommCofig;
+import com.tobe.main.ActionContext;
 import com.tobe.ui.tree.IconTreeCellRender;
 import com.tobe.ui.tree.MTreeModel;
 import com.tobe.ui.tree.MTreeNode;
@@ -146,12 +148,19 @@ public class TreePanel extends JPanel {
 					popupMenu = new JPopupMenu();
 					final JMenuItem genCodeItem = new JMenuItem("生成代码");
 					final JMenuItem refreshItem = new JMenuItem("刷新文件");
-					genCodeItem.addActionListener(new GenCodeAction());
 					popupMenu.add(genCodeItem);
 					popupMenu.add(refreshItem);
 					leafPop = popupMenu;
 					popupMenu.setInvoker(mTree);
 					popupMenu.setBorderPainted(true);
+					
+					GenCodeDialogAction action = new GenCodeDialogAction();
+					ActionContext context = new ActionContext();
+					context.setNode(node);
+					context.setConfig(new CommCofig());//TODO 
+					action.setContext(context);
+					genCodeItem.addActionListener(action);
+					
 				}
 				
 			}else {
