@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exam type="RK_RG" time="2010下半年 网络工程师 上午试卷">
+    <choices>
+        <choice id="1" answer="C">
+            <question>在输入输出控制方法中，采用______可以使得设备与主存间的数据块传送无需CPU干预。</question>
+            <A>程序控制输入输出</A>
+            <B>中断</B>
+            <C>DMA</C>
+            <D>总线控制</D>
+        </choice>
+        <choice id="2" answer="C">
+            <question>若计算机采用8位整数补码表示数据，则______运算将产生溢出。</question>
+            <A>-127+1</A>
+            <B>-127-1</B>
+            <C>127+1</C>
+            <D>127-1</D>
+        </choice>
+        <choice id="3" answer="A">
+            <question>编写汇编语言程序时，下列寄存器中，程序员可访问的是______。</question>
+            <A>程序计数器（PC）</A>
+            <B>指令寄存器（IR）</B>
+            <C>存储器数据寄存器（MDR）</C>
+            <D>存储器地址寄存器（MAR）</D>
+        </choice>
+        <choice id="4" answer="C">
+            <question>使用PERT图进行进度安排，不能清晰地描述______，但可以给出哪些任务完成后才能开始另一些任务。下面PERT图所示工程从A到K的关键路径是　（5）　（图中省略了任务的开始和结束时刻）。
+            </question>
+            <A>每个任务从何时开始</A>
+            <B>每个任务到何时结束</B>
+            <C>各任务之间的并行情况</C>
+            <D>各任务之间的依赖关系</D>
+        </choice>
+        <choice id="5" answer="A">
+            <question>某项目组拟开发一个大规模系统，且具备了相关领域及类似规模系统的开发经验。下列过程模型中，______最合适开发此项目。</question>
+            <A>原型模型</A>
+            <B>瀑布模型</B>
+            <C>V模型</C>
+            <D>螺旋模型</D>
+        </choice>
+        <choice id="6" answer="B">
+            <question>软件复杂性度量的参数不包括______。</question>
+            <A>软件的规模</A>
+            <B>开发小组的规模</B>
+            <C>软件的难度</C>
+            <D>软件的结构</D>
+        </choice>
+        <choice id="7" answer="C">
+            <question>在操作系统文件管理中，通常采用______来组织和管理外存中的信息。</question>
+            <A>字处理程序</A>
+            <B>设备驱动程序</B>
+            <C>文件目录</C>
+            <D>语言翻译程序</D>
+        </choice>
+        <choice id="8" answer="A">
+            <question>假设系统中进程的三态模型如下图所示，图中的a、b和c的状态分别为______。</question>
+            <A>就绪、运行、阻塞</A>
+            <B>运行、阻塞、就绪</B>
+            <C>就绪、阻塞、运行</C>
+            <D>阻塞、就绪、运行</D>
+        </choice>
+        <choice id="9" answer="C">
+            <question>利用______可以对软件的技术信息、经营信息提供保护。</question>
+            <A>著作权</A>
+            <B>专利权</B>
+            <C>商业秘密权</C>
+            <D>商标权</D>
+        </choice>
+        <choice id="10" answer="D">
+            <question>光纤分为单模光纤和多模光纤，这两种光纤的区别是______。</question>
+            <A>单模光纤的数据速率比多模光纤低</A>
+            <B>多模光纤比单模光纤传输距离更远</B>
+            <C>单模光纤比多模光纤的价格更便宜</C>
+            <D>多模光纤比单模光纤的纤芯直径粗</D>
+        </choice>
+    </choices>
+    <fills>
+        <fill id="1" answer="4">
+            2+2=?
+        </fill>
+        <fill id="1" answer="4">
+            2+2=?
+        </fill>
+        <fill id="1" answer="4">
+            2+2=?
+        </fill>
+    </fills>
+</exam>

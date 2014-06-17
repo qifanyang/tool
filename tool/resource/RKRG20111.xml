@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exam type="RK_RG" time="2011-1-1">
+    <choices>
+        <choice id="1" answer="A">
+            <question>按照ITU标准，传输速率为155.520Mbps的标准是（ ）。</question>
+            <A>OC-3</A>
+            <B>OC-12</B>
+            <C>OC-48</C>
+            <D>OC-192</D>
+        </choice>
+        <choice id="2" answer="D">
+            <question>下列关于RPR技术的描述中，错误的是( )。</question>
+            <A>RPR能够在50ms内隔离出现故障的节点和光纤段</A>
+            <B>RPR环中每一个节点都执行SRP公平算法</B>
+            <C>两个RPR节点之间的裸光纤最大长度为100公里</C>
+            <D>RPR用频分复用的方法传输IP分组</D>
+        </choice>
+        <choice id="3" answer="D">
+            <question>以下关于IEEE802.16协议的描述中，错误的是( )。</question>
+            <A>802.16主要用于解决城市地区范围内的宽带;无线接入问题</A>
+            <B>802.16a用于移动结点接入</B>
+            <C>802.16d用于固定结点接入</C>
+            <D>802.16e用于固定或移动结点接入</D>
+        </choice>
+		<choice id="4" answer="C">
+            <question>下列关于xDSL技术的描述中，错误的是( )。</question>
+            <A>xDSL技术按上行与下行速率分为速率对称与;非对称两类</A>
+            <B>ADSL技术在现有用户电话线上同时支持电话;业务和数字业务</B>
+            <C>ADSL上行传输速率最大可以达到8Mbps</C>
+            <D>HDSL上行传输速率为1.544Mbps</D>
+        </choice>
+		<choice id="5" answer="B">
+            <question>下列关于服务器技术的描述中，错误的是( )。</question>
+            <A>集群系统中一台主机出现故障时不会影响系;统的整体性能</A>
+            <B>ADSL技术在现有用户电话线上同时支持电话;业务和数字业务</B>
+            <C>采用RISC结构处理器的服务器通常不采用;Windows操作系统</C>
+            <D>采用RAID技术可提高磁盘容错能力</D>
+        </choice>
+		<choice id="6" answer="C">
+            <question>一台交换机具有48个10/100Mbps端口和2个1000Mbps端口，如果所有端口都工作在全双工状态， 那么;交换机总带宽应为( )。</question>
+            <A>8.8Gbps</A>
+            <B>12.8Gbps</B>
+            <C>13.6Gbps</C>
+            <D>24.8Gbps</D>
+        </choice>
+		<choice id="7" answer="B">
+            <question>服务器系统年停机时间为8.5小时，系统可用性可以达到 ( )。</question>
+            <A>99%</A>
+            <B>99.9%</B>
+            <C>99.99%</C>
+            <D>99.999%</D>
+        </choice>
+		<choice id="8" answer="B">
+            <question>IP地址块211.64.0.0/11的子网掩码可写为( )。</question>
+            <A>255.192.0.0</A>
+            <B>255.224.0.0</B>
+            <C>255.240.0.0</C>
+            <D>255.248.0.0</D>
+        </choice>
+		<choice id="9" answer="C">
+            <question>某企业产品部的IP地址块为211.168.15.192/26，市场部的为211.168.15.160/27，财务部的;为211.168.15.128/27，这三个地址块经聚合后的地址为( )。</question>
+            <A>211.168.15.0/25</A>
+            <B>211.168.15.0/26</B>
+            <C>211.168.15.128/25</C>
+            <D>211.168.15.128/26</D>
+        </choice>
+		<choice id="10" answer="A">
+            <question>IP地址块59.67.79.128/28、59.67.79.144/28和59.67.79.160/27经聚合后可用地址数为( )。</question>
+            <A>62</A>
+            <B>64</B>
+            <C>126</C>
+            <D>128</D>
+        </choice>
+		<choice id="11" answer="C">
+            <question>下列对IPv6地址FF23:0:0:0:0510:0:0:9C5B的简化表示中，错误的是( )。</question>
+            <A>FF23::0510:0:0:9C5B</A>
+            <B>FF23:0:0:0:0510::9C5B</B>
+            <C>FF23:0:0:0:051::9C5B</C>
+            <D>FF23::510:0:0:9C5B</D>
+			</choice>
+     	<choice id="12" answer="D">
+            <question>将专用IP地址转换为公用IP地址的技术是( )。</question>
+			/*图片放在这里*/
+            <A>ARP</A>
+            <B>DHCP</B>
+            <C>UTM</C>
+            <D>NAT</D>
+        </choice>
+    	<choice id="13" answer="B">
+            <question>R1、R2是一个自治系统中采用RIP路由协议的两个相邻路由器，R1的路由表如图a所示，当R1收到R2发送;的如图b的（V，D）报文后，R1更新的路由表项中距离值从上到下依次为0、4、4、3,那么，[1],[2],[3],[4]可能的取值依次为( )。</question>
+            <A>0、5、4、3</A>
+            <B>1、3、4、3</B>
+            <C>2、3、4、1</C>
+            <D>3、4、3、3</D>
+        </choice>
+		<choice id="14" answer="A">
+            <question>不同AS之间使用的路由协议是( )。</question>
+            <A>BGP-4B</A>
+            <B>ISIS</B>
+            <C>OSPF</C>
+            <D>RIP</D>
+        </choice>
+		<choice id="15" answer="A">
+            <question>下列关于局域网设备描述中，错误的是( )。</question>
+            <A>中继器工作在MAC层</A>
+            <B>连接到一个集线器的所有结点共享一个;冲突域</B>
+            <C>交换机在源端口与目的端口间建立虚连接</C>
+            <D>网桥的主要性能指标包括帧转发速率和;帆过滤速率</D>
+        </choice>
+		<choice id="16" answer="C">
+            <question>下列关于综合布线系统的描述中，错误的是( )。</question>
+            <A>STP比UTP的抗电磁干扰能力强</A>
+            <B>管理子系统提供与其他子系统连接的手段</B>
+            <C>对于建筑群子系统说，架空布线是最理想的方式</C>
+            <D>对高速率终端用户可直接铺设光纤到桌面</D>
+        </choice>
+		<choice id="17" answer="A">
+            <question>下列对交换机的描述中,错误的是( )。</question>
+            <A>交换机根据接收数据包括中的IP地址过;滤和转发数据</A>
+            <B>交换机可将多台数据终端设备连接在一起，;构成星状结构的网络</B>
+            <C>交换机有存储转发快速转发和碎片丢弃;三种交换模式</C>
+            <D>交换机允许多对站点进行并发通信</D>
+        </choice>
+		<choice id="18" answer="A">
+            <question>下列中交换机同属一个VTP域。除交换机B外，所有交换机的VLAN配置都与交换机A相同。交换机A和B的;VTP工作模式的正确配置是( )。</question>
+		   <A>set vtp mode transparent ;和set vtp mode server</A>
+            <B>set vtp mode server ;和set vtp mode transparent</B>
+            <C>set vtp mode server ;和set vtp mode client</C>
+            <D>set vtp mode server ;和set vtp mode server</D>
+        </choice>
+		<choice id="19" answer="C">
+            <question>在Cisco Catalyst 3548以太网交换机上建立一个名为lib105的VLAN，正确的配置是( )。</question>
+            <A> Switch-3548#vlan 1 name lib 105 ; Switch-3548#exit</A>
+            <B>Switch-3548(vlan)#vlan 1 name lib 105 ; Switch-3548(vlan)#exit</B>
+            <C>Switch-3548(vlan)#vlan 1000 name lib 105 ; Switch-3548(vlan)#exit</C>
+            <D>Switch-3548(vlan)#vlan 1002 name lib 105 ; Switch-3548(vlan)#exit</D>
+        </choice>
+	 	<choice id="20" answer="D">
+            <question>将Catalyst 6500交换机的设备管理地址设置为203.29.166.9/24,缺省网关的IP地址为203.29.166.1，;正确的配置语句是( )。</question>
+            <A>set interface vlan1 203.29.166.9 0.0.0.255 203.29.166.1</A>
+            <B>set interface vlan1 203.29.166.9 255.255.255.0 203.29.166.1</B>
+            <C>set interface sc0 203.29.166.9 0.0.0.255 203.29.166.1</C>
+            <D>set interface sc0 203.29.166.9 255.255.255.0 203.29.166.1</D>
+        </choice>
+	 	<choice id="21" answer="D">
+            <question>封禁ICMP协议，只转发212.78.170.166/27所在子网的所有站点的ICMP数据包，正确的access-list;配置是( )。</question>
+            <A> Router(config)#access-list 110 permit icmp 212.78.170.166 0.0.0.0 any ; Router(config)#access-list 110 deny icmp any any;Router(config)#access-list 110 permit ip any any</A>
+            <B> Router(config)#access-list 110 permit icmp 212.78.170.0 255.255.255.224 any; Router(config)#access-list 110 permit ip any any; Router(config)#access-list 110 deny icmp any any</B>
+            <C>Router(config)#access-list 110 perimt icmp 212.78.170.0 0.0.0.255 any ; Router(config)#access-list 110 deny icmp any any;Router(config)#access-list 110 permit ip any any</C>
+            <D>Router(config)#access-list 110 permit icmp 212.78.170.160 0.0.0.31 any ; Router(config)#access-list 110 deny icmp any any;Router(config)#access-list 110 permit ip any any</D>
+        </choice>
+	 	<choice id="22" answer="C">
+            <question>Cisco路由器执行show access-list命令显示如下一组控制列表信息;Standard IP access list 30 deny ;  127.0.0.0,wildcard bits 0.255.255.255;deny 172.16.0.0,wildcard bits 0.15.255.255;permit any;根据上述信息，正确的access-list配置是( )。</question>
+            <A> Router(config)#access-list 30 deny 127.0.0.0 255.255.255.0;Router(config)#access-list 30 deny 172.16.0.0 255.240.0.0;Router(config)#access-list 30 permit any</A>
+            <B> Router(config-std-nacl)#access-list 30 deny 127.0.0.0 0.255.255.255;Router(config-std-nacl)#access-list 30 deny 172.16.0.0 0.15.255.255;Router(config-std-nacl)#access-list 30 permit any</B>
+            <C> Router(config)#access-list 30 deny 127.0.0.0 0.255.255.255;Router(config)#access-list 30 deny 172.16.0.0 0.15.255.255;Router(config)#access-list 30 permit any</C>
+            <D> Router(config)#access-list 30 deny 127.0.0.0 0.255.255.255;Router(config)#access-list 30 permit any;Router(config)#access-list 30 deny 172.16.0.0 0.15.255.255</D>
+        </choice>
+	 	<choice id="23" answer="A">
+            <question>通过拨号远程配置Cisco路由器时，应使用的接口是( )。</question>
+            <A>AUX</A>
+            <B>Console</B>
+            <C>Ethernet</C>
+            <D>VTY</D>
+        </choice>
+	 	<choice id="24" answer="D">
+            <question> 在Cisco路由器上配置RIP v1路由协议，参与RIP路由的网络地址有193.22.56.0/26、193.22.56.64/26、;193.22.56.128/26和193.22.56.192/26，正确的配置命令是( )。</question>
+            <A>Router(config)# network 193.22.56.0 0.0.0.255</A>
+            <B>Router(config-router)# network 193.22.56.0 255.255.255.0</B>
+            <C>Router(config)# network 193.22.56.0</C>
+            <D>Router(config-router)# network 193.22.56.0</D>
+        </choice>
+	 	<choice id="25" answer="B">
+            <question>下列关于蓝牙技术的描述中，错误的是( )。</question>
+            <A>工作频段在2.402GHz~2.480GHz</A>
+            <B>非对称连接的异步信道速率是433.9kbps/57.6kbps</B>
+            <C>同步信道速率是64 kbps</C>
+            <D>扩展覆盖范围是100米</D>
+		</choice>
+	 	<choice id="26" answer="D">
+            <question>下列关于IEEE802.11b协议的描述中，错误的是( )。</question>
+            <A>采用CSMA/CA介质访问控制方法</A>
+            <B>允许无线节点之间采用对等通信方式</B>
+            <C>室内环境通信距离最远为100米</C>
+            <D>最大传输速率可以达到54Mbps</D>
+        </choice>
+	 	<choice id="27" answer="C">
+            <question>下列关于Cisco Aironet1100进入快速配置步骤的描述中，错误的是( )。</question>
+            <A>使用5类无屏蔽双绞线将PC机和无线接入点连接起来</A>
+            <B>接入点加电后，确认PC机获得了10.0.0.x网段的地址</B>
+            <C>打开PC机浏览器，并在浏览器的地址栏输入接入点的默认IP地址10.0.0.254</C>
+            <D>输入密码进入接入点汇总状态页面，并点击“Express Setup”进入快速配置页面</D>
+        </choice>
+	 	<choice id="28" answer="D">
+            <question>下列关于Windows2003系统下DNS服务器参数的描述中，错误的是( )。</question>
+            <A>下列关于Windows2003系统下DNS服务器参数的描述中，错误的是</A>
+            <B>反向查找区域用于将IP地址解析为域名</B>
+            <C>主机记录的TTL是该记录被查询后放到缓存中的持续时间</C>
+            <D>转发器用于将外部域名的查询转发给内部DNS服务器</D>
+        </choice>
+	 	<choice id="29" answer="C">
+            <question>下列关于Windows2003系统下DHCP服务器参数的描述中，错误的是( )。</question>
+            <A>作用域是网络上IP地址的连续范围</A>
+            <B>排除是从作用域内排除的有限IP地址序列</B>
+            <C>保留不可以使用被排出的IP地址序列</C>
+            <D>地址池是作用域应用排除范围之后剩余的IP地址</D>
+        </choice>
+	 	<choice id="30" answer="D">
+            <question>下列关于Windows2003系统下WWW服务器配置的描述中，错误的是( )。</question>
+            <A>设置默认文档后使用浏览器访问网站时能够自动打开网页</A>
+            <B>网站选项可设置网站的标识，并可启用日志记录</B>
+            <C>目录安全选项可选择配置身份验证和访问控制、IP地址和域名限制、安全通信</C>
+            <D>性能选项可设置影响带宽使用的属性及客户端Web连接的数量和超时时间</D>
+        </choice>
+	 	<choice id="31" answer="B">
+            <question> 下列关于Serv_U  FTP服务器配置的描述中，错误的是( )。</question>
+            <A>配置服务器域名时，可以使用域名或其它描述</A>
+            <B>配置服务器IP地址时，服务器有多个IP地址需分别添加</B>
+            <C>配置服务器域端口号时，可使用端口21或其它合适的端口号</C>
+            <D>配置域存储位置时，小的域应选择 .INI文件存储而大的域应选择注册表存储</D>
+        </choice>
+	 	<choice id="32" answer="B">
+            <question>下列关于邮件系统工作过程的描述中，错误的是( )。</question>
+            <A>用户使用客户端软件创建新邮件</A>
+            <B>客户端软件使用SMTP协议将邮件发送到接收方的邮件服务器</B>
+            <C>接收方的邮件服务器将收到的邮件存储在用户的邮箱中待用户处理</C>
+            <D>接收方客户端软件使用POP3或IMAP4协议从邮件服务器读取邮件</D>
+        </choice>
+	 	<choice id="33" answer="A">
+            <question>差异备份、增量备份、完全备份三种备份策略的恢复速度由慢到快依次为( )。</question>
+            <A>增量备份、差异备份、完全备份</A>
+            <B>差异备份、增量备份、完全备份</B>
+            <C>完全备份、差异备份、增量备份</C>
+            <D>完全备份、增量备份、差异备份</D>
+        </choice>
+	 	<choice id="34" answer="B">
+            <question>Cisco PIX525防火墙用来允许数据流从具有较低安全级接口流向较高安全级接口的配置命令是( )。</question>
+            <A>fixup </A>
+            <B>conduit </B>
+            <C>global </C>
+            <D>nameif</D>
+        </choice>
+	 	<choice id="35" answer="D">
+            <question> 下列方式中，利用主机应用系统漏洞进行攻击的是( )。</question>
+            <A>Land攻击</A>
+            <B>暴力攻击</B>
+            <C>源路由欺骗攻击  </C>
+            <D>SQL注入攻击</D>
+        </choice>
+	    <choice id="36" answer="A">
+            <question>以下不属于网络安全评估内容的是( )。</question>
+            <A>数据加密</A>
+            <B>漏洞检测</B>
+            <C>风险评估</C>
+            <D>安全审计</D>
+        </choice>
+	 	<choice id="37" answer="A">
+            <question>以下不属于网络安全评估内容的是( )。</question>
+            <A>snmp-server enable traps; snmp-server host pub.abc.edu.cn pub</A>
+            <B> snmp-server traps enable;  snmp-server host pub.abc.edu.cn pub</B>
+            <C> snmp-server enable traps; snmp-server pub.abc.edu.cn pub</C>
+            <D>snmp-server traps enable;snmp-server pub.abc.edu.cn pub</D>
+        </choice>
+	 	<choice id="38" answer="A">
+            <question> 下列关于漏洞扫描技术和工具的描述中，错误的是( )。</question>
+            <A>主动扫描工作方式类似于IDS</A>
+            <B>CVE为每个漏洞确定了唯一的名称和标准化的描述</B>
+            <C>X-Scanner采用多线程方式对指定IP地址段进行安全漏洞扫描</C>
+            <D>ISS的System Scanner通过依附于主机上的扫描器代理侦测主机内部的漏洞</D>
+        </choice>
+	 	<choice id="39" answer="B">
+            <question>在一台主机上涌浏览器无法访问到域名为www.abc.edu.cn的网站，并且在这台主机上执行tracert命令;时有如下信息;Tracing route to www.abc. edu.cn[202.113.96.10] ; Over maximum of 30 hops:; 1      &lt;1ms      &lt;1ms       &lt;1ms       59.67.148.1;2   59.67.148.1      reports:Destination net unreachable;Trace complete;分析以上信息，会造成这种现象的原因是( )。</question>
+            <A>该计算机IP地址设置有误</A>
+            <B>相关路由器上进行了访问控制</B>
+            <C>该计算机没有正确设置DNS服务器</C>
+            <D>该计算机设置的DNS服务器工作不正常</D>
+        </choice>
+		<choice id="40" answer="D">
+            <question>攻击者使用无效IP地址，利用TCP连接的三次握手过程，连续发送会话请求，使受害主机处于开放会话的;请求之中，直至连接超时，最终因耗尽资源而停止响应。这种攻击被称为( )。</question>
+            <A>DNS欺骗攻击 </A>
+            <B>DDOS攻击</B>
+            <C>重放攻击</C>
+            <D>SYN Flooding攻击</D>
+		</choice>
+    </choices>
+    <fills>
+        <fill id="1" answer="4">
+			asdfsdaff
+        </fill>
+        <fill id="2" answer="4">
+dfgdfg
+        </fill>
+        <fill id="3" answer="4">
+            2+2=?
+        </fill>
+    </fills>
+</exam>
