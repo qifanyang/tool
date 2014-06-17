@@ -16,7 +16,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.TitledBorder;
 
 import com.tobe.handler.GenCodeHandler;
-import com.tobe.main.ActionContext;
 import com.tobe.main.MainFrame;
 
 /**
@@ -125,7 +124,7 @@ public class GenCodeDialogAction implements ActionListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					GenCodeHandler handler = new GenCodeHandler();
-					handler.action(context, msgCB.isSelected(), handlerCB.isSelected(), beanCB.isSelected());
+					handler.action(context, beanCB.isSelected(), msgCB.isSelected(), handlerCB.isSelected());
 					dialog.dispose();
 				}
 			});

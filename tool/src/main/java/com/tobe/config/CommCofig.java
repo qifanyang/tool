@@ -1,7 +1,7 @@
 package com.tobe.config;
 
 public class CommCofig {
-	private String javaProject;
+	private String javaProject = "F:/dev/test";
 	private String javaMessagePool;
 	private String javaGateProject;
 	private String javaGateMessagePool;

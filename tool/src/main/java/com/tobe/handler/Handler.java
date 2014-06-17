@@ -1,6 +1,6 @@
 package com.tobe.handler;
 
-import com.tobe.main.ActionContext;
+import com.tobe.actions.ActionContext;
 
 public interface Handler {
 	

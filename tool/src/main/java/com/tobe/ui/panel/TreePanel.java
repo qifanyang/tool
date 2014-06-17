@@ -14,9 +14,9 @@ import javax.swing.JTree;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
+import com.tobe.actions.ActionContext;
 import com.tobe.actions.GenCodeDialogAction;
 import com.tobe.config.CommCofig;
-import com.tobe.main.ActionContext;
 import com.tobe.ui.tree.IconTreeCellRender;
 import com.tobe.ui.tree.MTreeModel;
 import com.tobe.ui.tree.MTreeNode;
