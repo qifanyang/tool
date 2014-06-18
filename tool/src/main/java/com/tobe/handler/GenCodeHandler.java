@@ -10,11 +10,15 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import com.sun.xml.internal.messaging.saaj.packaging.mime.util.BEncoderStream;
 import com.tobe.actions.ActionContext;
 import com.tobe.bean.Bean;
 import com.tobe.bean.Field;
 import com.tobe.bean.Message;
 import com.tobe.loader.MessageXMLLoader;
+import com.tobe.project.IFile;
 import com.tobe.project.IFolder;
 import com.tobe.project.IProject;
 import com.tobe.project.impl.JavaProject;
@@ -55,7 +59,10 @@ public class GenCodeHandler implements Handler {
 		
 		//
 		JavaProject project = new JavaProject(context.getConfig().getJavaProject());
-		
+		IFolder srcfolder = project.getSrc();
+		if(!srcfolder.exists()){
+			srcfolder.create();
+		}
 		
 		if (((Boolean)paras[0]).booleanValue()){//勾选了生成bean
 			try {
@@ -64,11 +71,25 @@ public class GenCodeHandler implements Handler {
 				while (iter.hasNext()) 
 				{
 					Bean bean = (Bean)iter.next();
-					createBean(temp, project, bean);
+					IFile srcfile = project.getFile((bean.getPackageName()+".bean."+bean.getBeanName()).replace(".", "/")+".java");
+					if(srcfile.exists()){
+						int result = JOptionPane.showConfirmDialog(null,bean.getBeanName() + "已经存在,是否覆盖?","警告[bean]", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						if(result == JOptionPane.OK_OPTION){
+							//
+							createBean(temp, project, bean);
+						}
+					}else{
+						IFolder folder = srcfolder.getFolder(bean.getPackageName()+".bean");
+						if(!folder.exists()){
+							folder.create();
+						}
+						createBean(temp, project, bean);
+					}
 				}
 				
 			} catch (Exception e) {
 				// TODO: handle exception
+				e.printStackTrace();
 			}
 		}
 		
@@ -81,10 +102,25 @@ public class GenCodeHandler implements Handler {
 					Message message = (Message)iter.next();
 	//				if (!contains(containsMessage, message.getType()))
 	//					continue;
-					createMessage(temp, project, message, loader.getBeans());
+					IFile srcfile = project.getFile((message.getPackageName()+".message."+message.getMessageName()).replace(".", "/")+"Message.java");
+					if(srcfile.exists()){
+						int result = JOptionPane.showConfirmDialog(null,message.getMessageName() + "已经存在,是否覆盖?","警告[message]", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						if(result == JOptionPane.OK_OPTION){
+							//
+							createMessage(temp, project, message, loader.getBeans());
+						}
+					}else{
+						IFolder folder = srcfolder.getFolder(message.getPackageName()+".message");
+						if(!folder.exists()){
+							folder.create();
+						}
+						createMessage(temp, project, message, loader.getBeans());
+					}
+					
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
+				e.printStackTrace();
 			}
 				
 		}
@@ -98,10 +134,23 @@ public class GenCodeHandler implements Handler {
 					Message message = (Message)iter.next();
 //					if (!contains(containsHandler, message.getType()))
 //						continue;
-					createHandler(temp, project, message);
+					IFile srcfile = project.getFile((message.getPackageName()+".handler."+message.getMessageName()).replace(".", "/")+"Handler.java");
+					if(srcfile.exists()){
+						int result = JOptionPane.showConfirmDialog(null,message.getMessageName() + "已经存在,是否覆盖?","警告[handler]", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						if(result == JOptionPane.OK_OPTION){
+							createHandler(temp, project, message);
+						}
+					}else{
+						IFolder folder = srcfolder.getFolder(message.getPackageName()+".handler");
+						if(!folder.exists()){
+							folder.create();
+						}
+						createHandler(temp, project, message);
+					}
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
+				e.printStackTrace();
 			}
 				
 		}
@@ -117,7 +166,7 @@ public class GenCodeHandler implements Handler {
 			root.put("fields", bean.getFields());
 			Writer out = new StringWriter();
 			temp.process(root, out);
-			IFolder srcfolder = project.getFolder("src");
+			IFolder srcfolder = project.getSrc();
 			IFolder folder = srcfolder.createFolder(bean.getPackageName()+".bean");
 			folder.createFile(bean.getBeanName() + ".java", out.toString());
 			out.close();
@@ -156,7 +205,7 @@ public class GenCodeHandler implements Handler {
 			temp.process(root, out);
 			
 //			packageFragment.createCompilationUnit((new StringBuilder(String.valueOf(message.getMessageName()))).append("Message.java").toString(), out.toString(), false, new NullProgressMonitor());
-			IFolder srcfolder = project.getFolder("src");
+			IFolder srcfolder = project.getSrc();
 			IFolder folder = srcfolder.createFolder(message.getPackageName()+".message");
 			folder.createFile(message.getMessageName()+"Message.java", out.toString());
 			out.close();
@@ -179,7 +228,7 @@ public class GenCodeHandler implements Handler {
 			Writer out = new StringWriter();
 			temp.process(root, out);
 //			packageFragment.createCompilationUnit((new StringBuilder(String.valueOf(message.getMessageName()))).append("Handler.java").toString(), out.toString(), false, new NullProgressMonitor());
-			IFolder srcfolder = project.getFolder("src");
+			IFolder srcfolder = project.getSrc();
 			IFolder folder = srcfolder.createFolder(message.getPackageName()+".handler");
 			folder.createFile(message.getMessageName()+"Handler.java", out.toString());
 			out.close();

@@ -7,4 +7,8 @@ public interface IFile {
 	String getFullPath();
 	
 	boolean delete();
+	
+	boolean create();
+	
+	boolean exists();
 }

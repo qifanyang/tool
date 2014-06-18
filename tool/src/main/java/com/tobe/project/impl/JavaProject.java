@@ -22,14 +22,20 @@ public class JavaProject implements IProject {
 
 	@Override
 	public IFile getFile(String name) {
-		File file = DevUtils.recursionFind(root.getFullPath(), name);
+		File file = new File(getSrc().getFullPath()+"/"+ name);
 		return new MFile(file);
 	}
 
 	@Override
-	public IFolder getFolder(String name) {
+	public IFolder getPackage(String name) {
 		String replace = name.replace(".", "/");
-		Folder folder = new Folder(root.getFullPath() + "/" + replace);
+		Folder folder = new Folder(root.getFullPath() + "/src/" + replace);
+		return folder;
+	}
+
+	@Override
+	public IFolder getSrc() {
+		Folder folder = new Folder(root.getFullPath() + "/src");
 		return folder;
 	}
 

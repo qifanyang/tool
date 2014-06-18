@@ -11,11 +11,14 @@ import com.tobe.ui.menu.TopMenu;
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public static final Image img = Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("bird48.png"));
-	 public MainFrame() {
+	public static MainFrame ins; 
+	public MainFrame() {
 	        initComponents();
 //	        designer.newPanel();
 	        setIconImage(img);
+	        ins = this;
 	    }
+	 
 
 	    /** This method is called from within the constructor to
 	     * initialize the form.

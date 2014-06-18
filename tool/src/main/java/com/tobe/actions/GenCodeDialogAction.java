@@ -98,12 +98,12 @@ public class GenCodeDialogAction implements ActionListener {
 		    selectPanel.setBorder(border);
 		    selectPanel.setLayout(new BoxLayout(selectPanel, BoxLayout.Y_AXIS));
 		    
+		    beanCB = new JCheckBox("自动生成消息bean");
 		    msgCB = new JCheckBox("自动生成message");
 			handlerCB = new JCheckBox("自动生成handler类");
-			beanCB = new JCheckBox("自动生成消息bean");
+			selectPanel.add(beanCB);
 		    selectPanel.add(msgCB);
 		    selectPanel.add(handlerCB);
-		    selectPanel.add(beanCB);
 		    
 		    
 		    JButton ok = new JButton("确定");

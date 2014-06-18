@@ -10,14 +10,14 @@ public class DevUtils {
 	 * @param name
 	 * @return
 	 */
-	public static File recursionFind(String path, String name){
+	public static File recursionFindFile(String path, String name){
 		    File file = new File(path);
 	        if (file.isDirectory()) {
 	            File[] children = file.listFiles();
 	            if (children != null) {
 	                for (File child : children) {
 	                    if (child.isDirectory()) {
-	                    	recursionFind(child.getAbsolutePath(), name);
+	                    	recursionFindFile(child.getAbsolutePath(), name);
 	                    } else {
 	                    	if(child.getName().equalsIgnoreCase(name)){
 	                    		return child;
@@ -26,7 +26,30 @@ public class DevUtils {
 	                }
 	            }
 	        }
-	        return null;
+	        return new File(path + "/" + name);
+	}
+	
+	public static File recursionFindFolder(String path, String name){
+		File file = new File(path);
+		if (file.isDirectory()) {
+			File[] children = file.listFiles();
+			if (children != null) {
+				for (File child : children) {
+					if (child.isDirectory()) {
+						if(child.getName().equalsIgnoreCase(name)){
+							return child;
+						}else{
+							recursionFindFolder(child.getAbsolutePath(), name);
+						}
+					} else {
+//						if(child.getName().equalsIgnoreCase(name)){
+//							return child;
+//						}
+					}
+				}
+			}
+		}
+		return new File(path + "/" + name.replace(".", "/"));
 	}
 
 

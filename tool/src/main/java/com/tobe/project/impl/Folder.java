@@ -17,22 +17,19 @@ public class Folder implements IFolder {
 	
 	public Folder(String path){
 		File file = new File(path);
-		if(!file.exists()){
-			file.mkdirs();
-		}
 		this.root = file;
 	}
 	
 	@Override
 	public IFile getFile(String name) {
-		File file = DevUtils.recursionFind(root.getAbsolutePath(), name);
+		File file = DevUtils.recursionFindFile(root.getAbsolutePath(), name);
 		return new MFile(file);
 	}
 
 	@Override
 	public IFolder getFolder(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		File file = DevUtils.recursionFindFolder(root.getAbsolutePath(), name);
+		return new Folder(file);
 	}
 
 	@Override
@@ -54,6 +51,7 @@ public class Folder implements IFolder {
 			out.close();
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return new MFile(file);
 	}
@@ -62,6 +60,9 @@ public class Folder implements IFolder {
 	public IFolder createFolder(String name) {
 		String replace = name.replace(".", "/");
 		Folder folder = new Folder(root.getAbsolutePath() + "/" + replace);
+		if(!folder.exists()){
+			folder.create();
+		}
 		return folder;
 	}
 
@@ -74,5 +75,14 @@ public class Folder implements IFolder {
 	public String getFullPath() {
 		return root.getAbsolutePath();
 	}
+
+	@Override
+	public boolean create() {
+		if(!root.exists()){
+			root.mkdirs();
+		}
+		return true;
+	}
+
 
 }

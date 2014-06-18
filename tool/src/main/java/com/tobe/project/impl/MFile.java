@@ -27,4 +27,18 @@ public class MFile implements IFile {
 		return false;
 	}
 
+	@Override
+	public boolean create() {
+//		if(!file.exists()){
+//			file.mkdirs();
+//		}
+		return false;
+	}
+
+	@Override
+	public boolean exists() {
+		return file.exists();
+	}
+
+
 }

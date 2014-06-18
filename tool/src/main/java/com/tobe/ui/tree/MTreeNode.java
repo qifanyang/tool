@@ -70,4 +70,16 @@ public class MTreeNode extends DefaultMutableTreeNode implements IFile {
 	public boolean delete() {
 		return getFile().delete();
 	}
+
+	@Override
+	public boolean create() {
+		return false;
+	}
+
+	@Override
+	public boolean exists() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
