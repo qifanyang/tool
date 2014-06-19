@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -11,12 +14,14 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.TitledBorder;
 
 import com.tobe.handler.GenCodeHandler;
 import com.tobe.main.MainFrame;
+import com.tobe.util.IconRes;
 
 /**
  * 生成代码
@@ -27,29 +32,41 @@ public class GenCodeDialogAction implements ActionListener {
 	private static JDialog dialog;
 	private static ActionContext context;
 	
+	private static OptionPanel serverOpPanel;
+	private static OptionPanel gateOpPanel;
+	private static OptionPanel worldOpPanel;
+	private static JTabbedPane tabbedPane;
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("gen code...");
 		if(dialog != null){
 			dialog.setVisible(true);
 		}else {
-			dialog = new JDialog();
+			dialog = new JDialog(){
+				private static final long serialVersionUID = 1L;
+				@Override
+				protected void processWindowEvent(WindowEvent e) {
+					super.processWindowEvent(e);
+					closeDialogReset();
+				}
+			};
 			
 			JPanel serverPanel = createServerJPanel();
 			JPanel gatePanel = createGateJPanel();
 			JPanel worldPanel = createWorldJPanel();
 			
-			JTabbedPane tabbedPane = new JTabbedPane();
+			tabbedPane = new JTabbedPane();
 			tabbedPane.add("Server Files", serverPanel);
 			tabbedPane.add("Gate Files", gatePanel);
 			tabbedPane.add("World Files", worldPanel);
 			
 			dialog.setTitle("代码生成");
-			dialog.setModal(true);
 			dialog.add(tabbedPane);
-			dialog.setIconImage(MainFrame.img);
+			dialog.setIconImage(IconRes.IMAGE_APP);
 			dialog.setSize(500, 250);
 			dialog.setLocationRelativeTo(null);
+			dialog.setModal(true);
 			dialog.setVisible(true);
 		}
 	}
@@ -57,19 +74,22 @@ public class GenCodeDialogAction implements ActionListener {
 	private JPanel createServerJPanel(){
 		JPanel serverPanel = new JPanel();
 		serverPanel.setLayout(new BorderLayout());
-		serverPanel.add(new OptionPanel());
+		serverOpPanel = new OptionPanel();
+		serverPanel.add(serverOpPanel);
 		return serverPanel;
 	}
 	private JPanel createGateJPanel(){
 		JPanel gatePanel = new JPanel();
 		gatePanel.setLayout(new BorderLayout());
-		gatePanel.add(new OptionPanel());
+		gateOpPanel = new OptionPanel();
+		gatePanel.add(gateOpPanel);
 		return gatePanel;
 	}
 	private JPanel createWorldJPanel(){
 		JPanel worldPanel = new JPanel();
 		worldPanel.setLayout(new BorderLayout());
-		worldPanel.add(new OptionPanel());
+		worldOpPanel =new OptionPanel();
+		worldPanel.add(worldOpPanel);
 		return worldPanel;
 	}
 
@@ -79,10 +99,21 @@ public class GenCodeDialogAction implements ActionListener {
 	}
 
 	public void setContext(ActionContext context) {
-		this.context = context;
+		GenCodeDialogAction.context = context;
 	}
 
+	/**
+	 * 关闭对话框或点击取消需要重置:
+	 * 
+	 */
+	private static void closeDialogReset() {
+		tabbedPane.setSelectedIndex(0);
+		
+		serverOpPanel.clearCheckBox();
+		gateOpPanel.clearCheckBox();
+		worldOpPanel.clearCheckBox();
 
+	}
 
 	static class OptionPanel extends JPanel{
 		private static final long serialVersionUID = 1L;
@@ -126,6 +157,7 @@ public class GenCodeDialogAction implements ActionListener {
 					GenCodeHandler handler = new GenCodeHandler();
 					handler.action(context, beanCB.isSelected(), msgCB.isSelected(), handlerCB.isSelected());
 					dialog.dispose();
+					closeDialogReset();
 				}
 			});
 		    
@@ -134,8 +166,15 @@ public class GenCodeDialogAction implements ActionListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dialog.dispose();
+					closeDialogReset();
 				}
 			});
+		}
+		
+		private void clearCheckBox(){
+			beanCB.setSelected(false);
+			msgCB.setSelected(false);
+			handlerCB.setSelected(false);
 		}
 	}
 }

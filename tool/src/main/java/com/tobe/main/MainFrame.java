@@ -3,20 +3,23 @@ package com.tobe.main;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import com.tobe.ui.menu.TopMenu;
+import com.tobe.util.IconRes;
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
-	public static final Image img = Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("bird48.png"));
+	
 	public static MainFrame ins; 
 	public MainFrame() {
 	        initComponents();
 //	        designer.newPanel();
-	        setIconImage(img);
+	        setIconImage(IconRes.IMAGE_APP);
 	        ins = this;
+	        
 	    }
 	 
 
@@ -34,7 +37,7 @@ public class MainFrame extends JFrame {
 	        setTitle("游戏辅助工具");
 	        TopMenu menu = new TopMenu();
 	        setJMenuBar(menu);
-	        getContentPane().add(new MainPanel(), java.awt.BorderLayout.WEST);
+	        getContentPane().add(new LeftPanel(), java.awt.BorderLayout.WEST);
 
 	        pack();
 	    }// </editor-fold>//GEN-END:initComponents

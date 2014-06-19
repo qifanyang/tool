@@ -47,7 +47,7 @@ public class GenCodeHandler implements Handler {
 		}
 	}
 	
-	//bean msg handler
+	//paras参数的顺序为----->bean msg handler
 	@Override
 	public void action(ActionContext context, Object... paras) {
 		System.out.println("handler ......");
@@ -63,7 +63,11 @@ public class GenCodeHandler implements Handler {
 		if(!srcfolder.exists()){
 			srcfolder.create();
 		}
-		
+		boolean overwrite = false;//覆盖全部
+		boolean cancel = false;//取消
+		//如果文件已经存在,提示对话框,选项{是(Y), 否(N), 全部覆盖, 取消}
+		//因java没有支持四个选项的对话框,所以需自己实现一个
+		Object[] options = {"覆盖","不覆盖"};
 		if (((Boolean)paras[0]).booleanValue()){//勾选了生成bean
 			try {
 				Template temp = cfg.getTemplate("Bean.ftl");
@@ -73,7 +77,7 @@ public class GenCodeHandler implements Handler {
 					Bean bean = (Bean)iter.next();
 					IFile srcfile = project.getFile((bean.getPackageName()+".bean."+bean.getBeanName()).replace(".", "/")+".java");
 					if(srcfile.exists()){
-						int result = JOptionPane.showConfirmDialog(null,bean.getBeanName() + "已经存在,是否覆盖?","警告[bean]", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						int result = JOptionPane.showConfirmDialog(null,bean.getBeanName() + "已经存在,是否覆盖?","警告[bean]", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 						if(result == JOptionPane.OK_OPTION){
 							//
 							createBean(temp, project, bean);

@@ -1,5 +1,6 @@
 package com.tobe.main;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
@@ -10,25 +11,26 @@ import com.tobe.ui.panel.TreePanel;
 import com.tobe.ui.tree.MTreeNode;
 
 
-public class MainPanel extends JPanel {
+public class LeftPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
-	public MainPanel() {
+	public LeftPanel() {
 		setBorder(null);
 		initCompent();
 	}
 
 	
 	private void initCompent() {
-		JSplitPane spane = new JSplitPane();
+//		JSplitPane spane = new JSplitPane();
 //		spane.setBorder(null);
+		setLayout(new BorderLayout());
 		TreePanel treePanel = new TreePanel();
 		treePanel.setBorder(null);
 //		treePanel.setSize(200, 600);
-		treePanel.setPreferredSize(new Dimension(230, 600));
-		spane.setLeftComponent(treePanel);
+//		treePanel.setPreferredSize(new Dimension(230, 600));
+//		spane.setLeftComponent(treePanel);
 		
-		add(spane);
+		add(treePanel);
 		
 		//统一设置面板引用
 		Manager.getIns().setTreePanel(treePanel);

@@ -110,7 +110,7 @@ public class TreePanel extends JPanel {
 		
 		
 		setLayout(new BorderLayout());
-		add(new JScrollPane(mTree), BorderLayout.CENTER);
+		add(new JScrollPane(mTree), BorderLayout.WEST);
 		
 	}
 
