@@ -18,4 +18,8 @@ public class IconRes {
 	public static final Image IMAGE_APP = Toolkit.getDefaultToolkit().getImage(IconRes.class.getResource("res/bird48.png"));
 	
 	public static final Icon question_icon = new ImageIcon(IconRes.class.getResource("res/question-balloon_blue.png"));
+	public static final Icon delete_icon = new ImageIcon(IconRes.class.getResource("res/delete.png"));
+	public static final Icon error_icon = new ImageIcon(IconRes.class.getResource("res/error.png"));
+	public static final Icon problem_icon = new ImageIcon(IconRes.class.getResource("res/problem.png"));
+	public static final Icon warning_icon = new ImageIcon(IconRes.class.getResource("res/warning.png"));
 }
