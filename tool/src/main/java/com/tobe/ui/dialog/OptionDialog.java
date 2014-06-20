@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.tobe.util.IconRes;
+import com.tobe.util.UIUtil;
 
 /**
  * 支持多个选项的dialog
@@ -49,7 +50,7 @@ public class OptionDialog{
 			throw new RuntimeException("initIndex  must > 0 and < options.length");
 		}
 		
-		JDialog dialog = new JDialog(){
+		final JDialog dialog = new JDialog(){
 
 			private static final long serialVersionUID = 1L;
 			@Override
@@ -62,13 +63,15 @@ public class OptionDialog{
 		JLabel label = new JLabel(content, JLabel.CENTER);
 		JPanel btnPanel = new JPanel();
 		btnPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		final JButton[] btns = new JButton[options.length];
 		for(int size = options.length, index = 0; index < size; index++){
 			final JButton btn = new JButton(options[index]);
+			btns[index] = btn;
 			if(index == initIndex){//TODO 默认选中按钮不管用
 				btn.setSelected(true);
-				System.out.println(options[index]);
+//				System.out.println(options[index]);
 			}else {
-				btn.setSelected(false);
+//				btn.setFocusable(false);
 			}
 			btn.validate();
 			btn.putClientProperty("options.select", index);
@@ -80,13 +83,15 @@ public class OptionDialog{
 					Object value = btn.getClientProperty("options.select");
 					Integer s = (Integer) value;
 					selected = s;
+					dialog.dispose();
 				}
 			});
 		}
 		dialog.add(new JLabel(getIconByType(dialog, type)), BorderLayout.WEST);
 		dialog.add(label, BorderLayout.CENTER);
 		dialog.add(btnPanel, BorderLayout.SOUTH);
-		dialog.setLocationRelativeTo(parent);
+//		dialog.setLocationRelativeTo(parent);
+		UIUtil.setCompentToCenter(dialog);
 		dialog.setTitle(title);
 		dialog.setIconImage(IconRes.IMAGE_APP);
 		dialog.setModal(true);
@@ -98,10 +103,10 @@ public class OptionDialog{
 	private static Icon getIconByType(JDialog dialog, int type){
 		switch (type) {
 		case QUESTION:
-			return IconRes.question_icon;
+			return IconRes.question_blue_icon;
 		default:
 			break;
 		}
-		return IconRes.question_icon;
+		return IconRes.question_blue_icon;
 	}
 }

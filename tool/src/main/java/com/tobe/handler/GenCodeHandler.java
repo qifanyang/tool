@@ -22,6 +22,7 @@ import com.tobe.project.IFile;
 import com.tobe.project.IFolder;
 import com.tobe.project.IProject;
 import com.tobe.project.impl.JavaProject;
+import com.tobe.ui.dialog.OptionDialog;
 
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
@@ -67,7 +68,8 @@ public class GenCodeHandler implements Handler {
 		boolean cancel = false;//取消
 		//如果文件已经存在,提示对话框,选项{是(Y), 否(N), 全部覆盖, 取消}
 		//因java没有支持四个选项的对话框,所以需自己实现一个
-		Object[] options = {"覆盖","不覆盖"};
+//		Object[] options = {"覆盖","不覆盖"};
+		String[] options = {"ok","no","yes to all","cancel"};
 		if (((Boolean)paras[0]).booleanValue()){//勾选了生成bean
 			try {
 				Template temp = cfg.getTemplate("Bean.ftl");
@@ -77,8 +79,10 @@ public class GenCodeHandler implements Handler {
 					Bean bean = (Bean)iter.next();
 					IFile srcfile = project.getFile((bean.getPackageName()+".bean."+bean.getBeanName()).replace(".", "/")+".java");
 					if(srcfile.exists()){
-						int result = JOptionPane.showConfirmDialog(null,bean.getBeanName() + "已经存在,是否覆盖?","警告[bean]", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-						if(result == JOptionPane.OK_OPTION){
+//						int result = JOptionPane.showConfirmDialog(null,bean.getBeanName() + "已经存在,是否覆盖?","警告[bean]", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+						int result = OptionDialog.showOptionDialog(context.getAttachComponent(),OptionDialog.QUESTION, bean.getBeanName() + "已经存在,是否覆盖?", "警告[bean]", options, 0);
+						System.out.println(result);
+						if(result == 0){
 							//
 							createBean(temp, project, bean);
 						}

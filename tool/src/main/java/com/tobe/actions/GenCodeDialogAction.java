@@ -68,6 +68,8 @@ public class GenCodeDialogAction implements ActionListener {
 			dialog.setLocationRelativeTo(null);
 			dialog.setModal(true);
 			dialog.setVisible(true);
+			
+			context.setAttachComponent(dialog);
 		}
 	}
 	
