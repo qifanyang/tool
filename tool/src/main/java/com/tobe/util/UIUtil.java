@@ -17,12 +17,16 @@ public class UIUtil {
 		return center;
 	}
 	
+	/**
+	 * 在setSize之后调用
+	 * @param c
+	 */
 	public static void setCompentToCenter(Component c){
-		Dimension dim = c.getMinimumSize();
+		Dimension dim = c.getSize();
 		Point center = new Point((int)(dim.getWidth()/2), (int)(dim.getHeight()/2));
 		Point screenCenter = getScreenCenter();
-//		Point point = new Point((int)(screenCenter.getX() - center.getX()), (int)(screenCenter.getY() - center.getY()));
-		Point point = new Point((int)(screenCenter.getX() - 200), (int)(screenCenter.getY() - 100));
+		Point point = new Point((int)(screenCenter.getX() - center.getX()), (int)(screenCenter.getY() - center.getY()));
+//		Point point = new Point((int)(screenCenter.getX() - 200), (int)(screenCenter.getY() - 100));
 		c.setLocation(point);
 	}
 }

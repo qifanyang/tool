@@ -91,11 +91,11 @@ public class OptionDialog{
 		dialog.add(label, BorderLayout.CENTER);
 		dialog.add(btnPanel, BorderLayout.SOUTH);
 //		dialog.setLocationRelativeTo(parent);
-		UIUtil.setCompentToCenter(dialog);
 		dialog.setTitle(title);
 		dialog.setIconImage(IconRes.IMAGE_APP);
 		dialog.setModal(true);
 		dialog.setSize(400, 200);
+		UIUtil.setCompentToCenter(dialog);
 		dialog.setVisible(true);
 		return selected;
 	}
