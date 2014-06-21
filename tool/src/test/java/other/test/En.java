@@ -12,8 +12,8 @@ public class En {
 	public void test0(){
 		try {
 			FileInputStream fis = new FileInputStream("");
-			FileOutputStream fos = new FileOutputStream("F:/x1.txt");
-			byte[] bytes = new byte[1*1000*1000];
+			FileOutputStream fos = new FileOutputStream("");
+			byte[] bytes = new byte[1*10*1000];
 			int len;
 			while((len = fis.read(bytes)) != -1){
 				for(int i = 0; i < len; i++){
