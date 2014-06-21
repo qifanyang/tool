@@ -68,7 +68,7 @@ public class OptionDialog{
 			final JButton btn = new JButton(options[index]);
 			btns[index] = btn;
 			if(index == initIndex){//TODO 默认选中按钮不管用
-				btn.setSelected(true);
+				btn.setFocusable(true);
 //				System.out.println(options[index]);
 			}else {
 //				btn.setFocusable(false);

@@ -64,27 +64,33 @@ public class GenCodeHandler implements Handler {
 		if(!srcfolder.exists()){
 			srcfolder.create();
 		}
-		boolean overwrite = false;//覆盖全部
-		boolean cancel = false;//取消
 		//如果文件已经存在,提示对话框,选项{是(Y), 否(N), 全部覆盖, 取消}
 		//因java没有支持四个选项的对话框,所以需自己实现一个
 //		Object[] options = {"覆盖","不覆盖"};
 		String[] options = {"ok","no","yes to all","cancel"};
 		if (((Boolean)paras[0]).booleanValue()){//勾选了生成bean
+			boolean overwrite = false;//覆盖全部
+			boolean cancel = false;//取消
 			try {
 				Template temp = cfg.getTemplate("Bean.ftl");
 				Iterator iter = loader.getBeans().values().iterator();
-				while (iter.hasNext()) 
+				while (iter.hasNext() && !cancel) 
 				{
 					Bean bean = (Bean)iter.next();
 					IFile srcfile = project.getFile((bean.getPackageName()+".bean."+bean.getBeanName()).replace(".", "/")+".java");
-					if(srcfile.exists()){
+					if(srcfile.exists() && !overwrite){
 //						int result = JOptionPane.showConfirmDialog(null,bean.getBeanName() + "已经存在,是否覆盖?","警告[bean]", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 						int result = OptionDialog.showOptionDialog(context.getAttachComponent(),OptionDialog.QUESTION, bean.getBeanName() + "已经存在,是否覆盖?", "警告[bean]", options, 0);
 						System.out.println(result);
 						if(result == 0){
-							//
+							//ok
 							createBean(temp, project, bean);
+						}
+						if(result == 2){
+							overwrite = true;//yes to all
+						}
+						if(result == 3){
+							cancel = true;//cancel
 						}
 					}else{
 						IFolder folder = srcfolder.getFolder(bean.getPackageName()+".bean");
@@ -105,17 +111,26 @@ public class GenCodeHandler implements Handler {
 			try {
 				Template temp = cfg.getTemplate("Message.ftl");
 				Iterator iter = loader.getMessages().iterator();
-				while (iter.hasNext()) 
+				boolean overwrite = false;//覆盖全部
+				boolean cancel = false;//取消
+				while (iter.hasNext() && !cancel) 
 				{
 					Message message = (Message)iter.next();
 	//				if (!contains(containsMessage, message.getType()))
 	//					continue;
 					IFile srcfile = project.getFile((message.getPackageName()+".message."+message.getMessageName()).replace(".", "/")+"Message.java");
-					if(srcfile.exists()){
-						int result = JOptionPane.showConfirmDialog(null,message.getMessageName() + "已经存在,是否覆盖?","警告[message]", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-						if(result == JOptionPane.OK_OPTION){
-							//
+					if(srcfile.exists() && !overwrite){
+						int result = OptionDialog.showOptionDialog(context.getAttachComponent(),OptionDialog.QUESTION, message.getMessageName() + "已经存在,是否覆盖?", "警告[Message]", options, 0);
+						System.out.println(result);
+						if(result == 0){
+							//ok
 							createMessage(temp, project, message, loader.getBeans());
+						}
+						if(result == 2){
+							overwrite = true;//yes to all
+						}
+						if(result == 3){
+							cancel = true;//cancel
 						}
 					}else{
 						IFolder folder = srcfolder.getFolder(message.getPackageName()+".message");
@@ -137,16 +152,26 @@ public class GenCodeHandler implements Handler {
 			try {
 				Template temp = cfg.getTemplate("Handler.ftl");
 				Iterator iter = loader.getMessages().iterator();
-				while (iter.hasNext()) 
+				boolean overwrite = false;//覆盖全部
+				boolean cancel = false;//取消
+				while (iter.hasNext() && !cancel) 
 				{
 					Message message = (Message)iter.next();
 //					if (!contains(containsHandler, message.getType()))
 //						continue;
 					IFile srcfile = project.getFile((message.getPackageName()+".handler."+message.getMessageName()).replace(".", "/")+"Handler.java");
-					if(srcfile.exists()){
-						int result = JOptionPane.showConfirmDialog(null,message.getMessageName() + "已经存在,是否覆盖?","警告[handler]", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-						if(result == JOptionPane.OK_OPTION){
+					if(srcfile.exists() && !overwrite){
+						int result = OptionDialog.showOptionDialog(context.getAttachComponent(),OptionDialog.QUESTION, message.getMessageName() + "已经存在,是否覆盖?", "警告[Handler]", options, 0);
+						System.out.println(result);
+						if(result == 0){
+							//ok
 							createHandler(temp, project, message);
+						}
+						if(result == 2){
+							overwrite = true;//yes to all
+						}
+						if(result == 3){
+							cancel = true;//cancel
 						}
 					}else{
 						IFolder folder = srcfolder.getFolder(message.getPackageName()+".handler");
