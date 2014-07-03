@@ -6,3 +6,16 @@
     1.刷新(重新加载该节点文件)
     2.最近修改(今天内,一周内,一个月内,需要在目录节点上使用)
     3.生成代码(弹出面板,分页显示gate,world,server,然后每页下面显示message,handler,bean的复选框)
+
+
+FreeMark:
+
+<#if imports??> //查询imports是否存在,通过if后面只能跟逻辑表达式可知
+
+
+${.globals[field.className]!field.className}
+//.globals[]查询全局变量表
+//expression!value expression不存在采用后面的默认值
+
+
+${field.name?cap_first}//函数调用首字母大写, 其它的如xx?int(强转)
