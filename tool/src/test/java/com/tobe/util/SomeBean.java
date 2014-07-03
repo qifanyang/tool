@@ -18,7 +18,7 @@ public class SomeBean implements BeanValidate{
 	@Override
 	public boolean validate  (  ) {
 		//该方法可以修改,生成bean.如过该bean存在,保留该方法
-		System.out.println("}bean valiate run.....");
+		System.out.println("}}}{{}bean valiate run.....");
 		if(true){
 			System.out.println("ok");
 		}
@@ -30,5 +30,7 @@ public class SomeBean implements BeanValidate{
 	private int testone(){
 		return 0;
 	}
+	
+	
 
 }

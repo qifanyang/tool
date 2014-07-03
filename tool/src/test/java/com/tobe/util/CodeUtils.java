@@ -26,28 +26,29 @@ public class CodeUtils {
 			FileInputStream in = new FileInputStream(path);
 			@SuppressWarnings("resource")
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-			String line;
+			String line = "";
 			while((line = reader.readLine()) != null) {
 				builder.append(line);
-				builder.append("\r\n");
+				builder.append("\r\n");//readLine()方法返回的String不包含任何终止符号
 			}
 			String code = builder.toString();
+			builder.setLength(0);
+			
 			Scanner scanner = new Scanner(code);
 			scanner.useDelimiter(regex);
 			String halfcode ;
 			if(scanner.hasNext()){
 				scanner.next();
 				halfcode = scanner.next();
-//				System.out.println(halfcode);
-				
-				InputStreamReader reader1 = new InputStreamReader(new ByteArrayInputStream(halfcode.getBytes()));
+				//因为代码中有汉字.无法使用bytes遍历,所以使用reader遍历
+				InputStreamReader innderReader = new InputStreamReader(new ByteArrayInputStream(halfcode.getBytes()));
 				boolean isbegin = false;
 				boolean isneedCount = true;//引号中不需要计数
 				int c = 0;//读取字符
 				int count = 0;//用于"{"计数.当为0的时候表示方法读取完毕,防止在字符串中使用了"}", 字符串中的{}不计数
 				int start = 0;
 				int end = 0;//当前字符位置
-				while((c = reader1.read()) != -1){
+				while((c = innderReader.read()) != -1){
 					char ch = (char)c;
 					if(ch == '"'){
 						isneedCount = !isneedCount;
@@ -68,11 +69,15 @@ public class CodeUtils {
 						count--;
 					}
 					
+//					if(isbegin){
+//						builder.append(ch);
+//					}
 					if(isbegin && count == 0){
 						//提取完毕
 						result = halfcode.substring(start, end+1);
 //						System.out.println("+++++++++++++++");
 //						System.out.println(result);
+//						System.out.println(builder.toString());
 						break;
 					}
 					end++;

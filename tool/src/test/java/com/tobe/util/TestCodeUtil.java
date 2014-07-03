@@ -10,7 +10,7 @@ public class TestCodeUtil extends TestCase{
 		System.out.println(code);
 		System.out.println("=======================");
 		code = CodeUtils.extractMethodCode(path, "testone");
-		System.out.println(code);
+//		System.out.println(code);
 	}
 
 }
