@@ -21,6 +21,8 @@ import org.joda.time.chrono.CopticChronology;
 /**joda for TimeUtil*/
 public class TestJodaTimeUtil extends TestCase{
 
+	private Calendar instance;
+
 	public void test1(){
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2000, Calendar.JANUARY, 1, 0, 0, 0);
@@ -111,8 +113,17 @@ public class TestJodaTimeUtil extends TestCase{
 		 System.out.println(jodazone.getOffset(System.currentTimeMillis()));
 		 System.out.println(jodazone.getID());
 		 //九月第一个星期一
-		 DateTime plusDays = new DateTime().monthOfYear().setCopy(9).dayOfMonth().withMinimumValue().plusDays(6).dayOfWeek().setCopy(1);
+		 DateTime plusDays = new DateTime().monthOfYear().setCopy(7).dayOfMonth().withMinimumValue().plusDays(6).dayOfWeek().setCopy(1);
 		 System.out.println(plusDays.toString("yyyy-MM-dd HH:mm:ss"));
+//		  plusDays = new DateTime().monthOfYear().setCopy(9).dayOfMonth().withMinimumValue().plusDays(6).dayOfWeek().setCopy(1).plusWeeks(3);
+//		 System.out.println(plusDays.toString("yyyy-MM-dd HH:mm:ss"));
+		 instance = Calendar.getInstance();
+		 instance.set(Calendar.WEEK_OF_MONTH, 1);
+		 instance.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+		
+		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 System.out.println(format.format(instance.getTime()));
+		 System.out.println(instance.get(Calendar.WEEK_OF_MONTH));
 	}
 	
 }
