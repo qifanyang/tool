@@ -1,4 +1,4 @@
-package com.disruptor;
+package disruptor.test;
 
 import java.nio.ByteBuffer;
 import java.util.concurrent.Executor;

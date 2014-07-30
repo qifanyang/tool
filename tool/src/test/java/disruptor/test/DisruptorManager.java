@@ -1,4 +1,4 @@
-package com.disruptor;
+package disruptor.test;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
