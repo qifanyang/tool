@@ -18,6 +18,7 @@ public class TestCache extends TestCase {
 	
 	public void testuse(){
 		
+		System.out.println(System.getProperties());
 //		1、原子的内容加载，当Key在Cache中不存在时，会回调Loader函数，如果有其他并发的对该Key的请求会等待Loader函数而不是重复加载。
 //		2、maximum 数量限制，超出时用LRU（least-recently-used)算法清除。
 //		3、超时限制，设置max idle time 或 max live time，在每次取元素时都会做超时检查。

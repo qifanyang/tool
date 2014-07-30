@@ -3,6 +3,7 @@ package guava.test;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.nio.charset.Charset;
 
 import org.junit.Test;
 
@@ -12,6 +13,7 @@ public class TestGouZi{
 	@Test
 	public void testgz(){
 		System.out.println("start.....");
+		
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(){@Override
 		public void run() {

@@ -39,6 +39,7 @@ public class GenCodeHandler implements Handler {
 			cfg.setDefaultEncoding("UTF-8");
 //			System.out.println(System.getProperty("user.dir"));
 			File path = new File(System.getProperty("user.dir") + "/resource/java_ftl/");
+//			File path = new File(System.getProperty("user.dir") + "/resource/as_ftl/");
 			cfg.setDirectoryForTemplateLoading(path);
 			cfg.setObjectWrapper(new DefaultObjectWrapper());
 			

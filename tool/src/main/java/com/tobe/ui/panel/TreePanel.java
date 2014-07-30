@@ -157,7 +157,7 @@ public class TreePanel extends JPanel {
 					GenCodeDialogAction action = new GenCodeDialogAction();
 					ActionContext context = new ActionContext();
 					context.setNode(node);
-					context.setConfig(new CommCofig());//TODO 
+					context.setConfig(new CommCofig());//TODO commconfig这里是配置的
 					action.setContext(context);
 					genCodeItem.addActionListener(action);
 					
