@@ -4,10 +4,12 @@ package guava.test;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class TestGouZi extends TestCase{
 
+public class TestGouZi{
+
+	@Test
 	public void testgz(){
 		System.out.println("start.....");
 		

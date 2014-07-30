@@ -130,9 +130,9 @@ public class GuavaOfenUseTest extends TestCase{
 		    @Override 
 		    public int compare(Foo f1, Foo f2) {
 			    return ComparisonChain.start()  
-			         .compare(f1.a, f2.a)  
-			         .compare(f1.b, f2.b) 
-			         .compare(f1.c, f2.c).result(); 
+			         .compare(f2.a, f1.a)  
+			         .compare(f2.b, f1.b) 
+			         .compare(f2.c, f1.c).result(); 
 		      }});
 		System.out.println(fooList.toString());
 	}

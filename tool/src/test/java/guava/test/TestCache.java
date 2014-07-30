@@ -5,12 +5,14 @@ import java.util.concurrent.ExecutionException;
 
 import junit.framework.TestCase;
 
+import com.google.common.annotations.GwtIncompatible;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.cache.RemovalListener;
 import com.google.common.cache.RemovalNotification;
+import com.google.common.util.concurrent.ListenableFuture;
 
 public class TestCache extends TestCase {
 	
@@ -21,7 +23,11 @@ public class TestCache extends TestCase {
 //		3、超时限制，设置max idle time 或 max live time，在每次取元素时都会做超时检查。
 //		4、Key是weak reference， Value是weak 或者 soft reference，真的内存不足时，会被GC掉，慎用。
 		
-		
+		int s = 1;
+		for(;s < 10000;){
+			s += s;
+		}
+		System.out.println(s);
 		//cacheLoader
 		 LoadingCache<String,String> cahceBuilder=CacheBuilder.newBuilder().maximumSize(3)
 				 .removalListener(new RemovalListener<String,String>() {
@@ -38,6 +44,14 @@ public class TestCache extends TestCase {
 			            public String load(String key){        
 			                String strProValue="hello "+key+"!";                
 			                return strProValue;
+			            }
+			            
+			            @Override
+			            @GwtIncompatible("Futures")
+			            public ListenableFuture<String> reload(String key,
+			            	String oldValue) throws Exception {
+			            // TODO Auto-generated method stub
+			            return super.reload(key, oldValue);
 			            }
 			            
 			        });  
