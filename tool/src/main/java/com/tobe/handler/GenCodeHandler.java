@@ -39,8 +39,13 @@ public class GenCodeHandler implements Handler {
 //			System.out.println(System.getProperty("user.dir"));
 			File path = new File(System.getProperty("user.dir") + "/resource/java_ftl/");
 //			File path = new File(System.getProperty("user.dir") + "/resource/as_ftl/");
-			File gg = new File("./resource/java_ftl/");
-			System.out.println(gg.exists());
+			
+			//在插件中寻找资源文件位置
+//			org.osgi.framework.Bundle bundle = Platform.getBundle("myplugin");
+//			URL url = FileLocator.find(bundle, new Path("./resource/java_ftl/"), null);
+//			url = FileLocator.toFileURL(url);
+//			path = new File(url.getPath());
+			
 			cfg.setDirectoryForTemplateLoading(path);
 			cfg.setObjectWrapper(new DefaultObjectWrapper());
 			
