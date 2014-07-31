@@ -3,6 +3,7 @@ package com.tobe.util;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.ResourceBundle;
 
 
 /**
@@ -29,4 +30,20 @@ public class UIUtil {
 //		Point point = new Point((int)(screenCenter.getX() - 200), (int)(screenCenter.getY() - 100));
 		c.setLocation(point);
 	}
+	
+	static ResourceBundle res = ResourceBundle.getBundle("UI");
+	
+	/**i18n*/
+	public static String getName(String key){
+		return res.getString(key);
+	}
+	
+	//常用名字
+	
+	public static String NAME_OK = getName("ok");//确定
+	public static String NAME_CANEL = getName("cancel");//取消
+	public static String NAME_YES = getName("yes");//是
+	public static String NAME_NO = getName("no");//否
+	public static String NAME_AUTO_MAKE = getName("automake");//自动生成
+	
 }

@@ -10,9 +10,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.JOptionPane;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.util.BEncoderStream;
 import com.tobe.actions.ActionContext;
 import com.tobe.bean.Bean;
 import com.tobe.bean.Field;
@@ -23,6 +21,7 @@ import com.tobe.project.IFolder;
 import com.tobe.project.IProject;
 import com.tobe.project.impl.JavaProject;
 import com.tobe.ui.dialog.OptionDialog;
+import com.tobe.util.UIUtil;
 
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
@@ -40,6 +39,8 @@ public class GenCodeHandler implements Handler {
 //			System.out.println(System.getProperty("user.dir"));
 			File path = new File(System.getProperty("user.dir") + "/resource/java_ftl/");
 //			File path = new File(System.getProperty("user.dir") + "/resource/as_ftl/");
+			File gg = new File("./resource/java_ftl/");
+			System.out.println(gg.exists());
 			cfg.setDirectoryForTemplateLoading(path);
 			cfg.setObjectWrapper(new DefaultObjectWrapper());
 			
@@ -68,7 +69,7 @@ public class GenCodeHandler implements Handler {
 		//如果文件已经存在,提示对话框,选项{是(Y), 否(N), 全部覆盖, 取消}
 		//因java没有支持四个选项的对话框,所以需自己实现一个
 //		Object[] options = {"覆盖","不覆盖"};
-		String[] options = {"ok","no","yes to all","cancel"};
+		String[] options = {UIUtil.getName("ok"),UIUtil.getName("no"),UIUtil.getName("yestoalloverride"),UIUtil.getName("cancel")};
 		if (((Boolean)paras[0]).booleanValue()){//勾选了生成bean
 			boolean overwrite = false;//覆盖全部
 			boolean cancel = false;//取消
@@ -81,7 +82,7 @@ public class GenCodeHandler implements Handler {
 					IFile srcfile = project.getFile((bean.getPackageName()+".bean."+bean.getBeanName()).replace(".", "/")+".java");
 					if(srcfile.exists() && !overwrite){
 //						int result = JOptionPane.showConfirmDialog(null,bean.getBeanName() + "已经存在,是否覆盖?","警告[bean]", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-						int result = OptionDialog.showOptionDialog(context.getAttachComponent(),OptionDialog.QUESTION, bean.getBeanName() + "已经存在,是否覆盖?", "警告[bean]", options, 0);
+						int result = OptionDialog.showOptionDialog(context.getAttachComponent(),OptionDialog.QUESTION, bean.getBeanName() + UIUtil.getName("overridewarn"), UIUtil.getName("warn")+"[bean]", options, 0);
 						System.out.println(result);
 						if(result == 0){
 							//ok
@@ -121,7 +122,7 @@ public class GenCodeHandler implements Handler {
 	//					continue;
 					IFile srcfile = project.getFile((message.getPackageName()+".message."+message.getMessageName()).replace(".", "/")+"Message.java");
 					if(srcfile.exists() && !overwrite){
-						int result = OptionDialog.showOptionDialog(context.getAttachComponent(),OptionDialog.QUESTION, message.getMessageName() + "已经存在,是否覆盖?", "警告[Message]", options, 0);
+						int result = OptionDialog.showOptionDialog(context.getAttachComponent(),OptionDialog.QUESTION, message.getMessageName() + UIUtil.getName("overridewarn"), UIUtil.getName("warn")+"[Message]", options, 0);
 						System.out.println(result);
 						if(result == 0){
 							//ok
@@ -162,7 +163,7 @@ public class GenCodeHandler implements Handler {
 //						continue;
 					IFile srcfile = project.getFile((message.getPackageName()+".handler."+message.getMessageName()).replace(".", "/")+"Handler.java");
 					if(srcfile.exists() && !overwrite){
-						int result = OptionDialog.showOptionDialog(context.getAttachComponent(),OptionDialog.QUESTION, message.getMessageName() + "已经存在,是否覆盖?", "警告[Handler]", options, 0);
+						int result = OptionDialog.showOptionDialog(context.getAttachComponent(),OptionDialog.QUESTION, message.getMessageName() + UIUtil.getName("overridewarn"), UIUtil.getName("warn")+"[Handler]", options, 0);
 						System.out.println(result);
 						if(result == 0){
 							//ok

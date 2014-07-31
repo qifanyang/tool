@@ -22,6 +22,7 @@ import javax.swing.border.TitledBorder;
 import com.tobe.handler.GenCodeHandler;
 import com.tobe.main.MainFrame;
 import com.tobe.util.IconRes;
+import com.tobe.util.UIUtil;
 
 /**
  * 生成代码
@@ -61,7 +62,7 @@ public class GenCodeDialogAction implements ActionListener {
 			tabbedPane.add("Gate Files", gatePanel);
 			tabbedPane.add("World Files", worldPanel);
 			
-			dialog.setTitle("代码生成");
+			dialog.setTitle(UIUtil.getName("gencode"));
 			dialog.add(tabbedPane);
 			dialog.setIconImage(IconRes.IMAGE_APP);
 			dialog.setSize(500, 250);
@@ -131,23 +132,23 @@ public class GenCodeDialogAction implements ActionListener {
 		    selectPanel.setBorder(border);
 		    selectPanel.setLayout(new BoxLayout(selectPanel, BoxLayout.Y_AXIS));
 		    
-		    beanCB = new JCheckBox("自动生成消息bean");
-		    msgCB = new JCheckBox("自动生成message");
-			handlerCB = new JCheckBox("自动生成handler类");
+		    beanCB = new JCheckBox(UIUtil.NAME_AUTO_MAKE + "bean");
+		    msgCB = new JCheckBox(UIUtil.NAME_AUTO_MAKE + "message");
+			handlerCB = new JCheckBox(UIUtil.NAME_AUTO_MAKE + "handler");
 			selectPanel.add(beanCB);
 		    selectPanel.add(msgCB);
 		    selectPanel.add(handlerCB);
 		    
 		    
-		    JButton ok = new JButton("确定");
-		    JButton cancel = new JButton("取消");
+		    JButton ok = new JButton(UIUtil.NAME_OK);
+		    JButton cancel = new JButton(UIUtil.NAME_CANEL);
 		    JPanel btnPanel = new JPanel();
 //		    btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.X_AXIS));
 		    btnPanel.add(ok);
 		    btnPanel.add(cancel);
 		
 		    
-		    JLabel label = new JLabel("消息文件    com.game.message.pool.MessagePool");
+		    JLabel label = new JLabel(UIUtil.getName("messagepool") + "		com.game.message.pool.MessagePool");
 		    add(label, BorderLayout.NORTH);
 		    add(selectPanel, BorderLayout.CENTER);
 		    add(btnPanel, BorderLayout.SOUTH);

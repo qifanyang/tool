@@ -20,6 +20,7 @@ import com.tobe.config.CommCofig;
 import com.tobe.ui.tree.IconTreeCellRender;
 import com.tobe.ui.tree.MTreeModel;
 import com.tobe.ui.tree.MTreeNode;
+import com.tobe.util.UIUtil;
 
 /**
  * 树形面板
@@ -146,8 +147,8 @@ public class TreePanel extends JPanel {
 					popupMenu = leafPop;
 				}else {
 					popupMenu = new JPopupMenu();
-					final JMenuItem genCodeItem = new JMenuItem("生成代码");
-					final JMenuItem refreshItem = new JMenuItem("刷新文件");
+					final JMenuItem genCodeItem = new JMenuItem(UIUtil.getName("gencode"));
+					final JMenuItem refreshItem = new JMenuItem(UIUtil.getName("refreshfile"));
 					popupMenu.add(genCodeItem);
 					popupMenu.add(refreshItem);
 					leafPop = popupMenu;
@@ -168,10 +169,10 @@ public class TreePanel extends JPanel {
 					popupMenu = noleafPop;
 				}else {
 					popupMenu = new JPopupMenu();
-					final JMenu lastModifyItem = new JMenu("最近修改");
-					final JMenuItem todayModifyItem = new JMenuItem("今天内");
-					final JMenuItem weekModifyItem = new JMenuItem("一周内");
-					final JMenuItem monthModifyItem = new JMenuItem("一个月内");
+					final JMenu lastModifyItem = new JMenu(UIUtil.getName("recentlymodified"));
+					final JMenuItem todayModifyItem = new JMenuItem(UIUtil.getName("inthistoday"));
+					final JMenuItem weekModifyItem = new JMenuItem(UIUtil.getName("inthisweek"));
+					final JMenuItem monthModifyItem = new JMenuItem(UIUtil.getName("inthismonth"));
 					lastModifyItem.add(todayModifyItem);
 					lastModifyItem.add(weekModifyItem);
 					lastModifyItem.add(monthModifyItem);

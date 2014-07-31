@@ -2,6 +2,9 @@ package com.tobe.ui.menu;
 
 
 import javax.swing.*;
+
+import com.tobe.util.UIUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Locale;
@@ -33,7 +36,7 @@ public class TopMenu extends JMenuBar {
     public TopMenu() {
         ResourceBundle res = ResourceBundle.getBundle("UI");
         //file menu
-        fileMenu = new JMenu(res.getString("file"));
+        fileMenu = new JMenu(UIUtil.getName("file"));
         openFileItem = new JMenuItem(res.getString("open"));
         saveFileItem = new JMenuItem(res.getString("save"));
         exitFileItem = new JMenuItem(res.getString("exit"));
