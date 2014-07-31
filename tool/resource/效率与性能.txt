@@ -1,0 +1,6 @@
+IntHashMap替代HashMap 
+
+压缩使用snappy,速度比zip快,但压缩率要低
+
+时间使用joda-time, jdk8收录
+
