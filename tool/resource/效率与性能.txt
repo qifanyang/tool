@@ -4,3 +4,12 @@ IntHashMap替代HashMap
 
 时间使用joda-time, jdk8收录
 
+消息队列使用disruptor,无锁队列
+
+Java字符集编码的自动识别 jchardet
+
+用&代替%,计算取模
+
+监控  http://metrics.codahale.com/getting-started/
+
+org.apache.lucene.util.RamUsageEstimator 粗略计算一个对象的大小

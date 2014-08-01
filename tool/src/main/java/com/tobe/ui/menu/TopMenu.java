@@ -3,6 +3,7 @@ package com.tobe.ui.menu;
 
 import javax.swing.*;
 
+import com.tobe.main.MainFrame;
 import com.tobe.util.UIUtil;
 
 import java.awt.event.ActionEvent;
@@ -128,6 +129,17 @@ public class TopMenu extends JMenuBar {
             public void actionPerformed(ActionEvent e) {
                 ResourceBundle resourceBundle = ResourceBundle.getBundle("UI");
 //                JOptionPane.showMessageDialog(Engine.getInstance(), resourceBundle.getString("softInfo"), resourceBundle.getString("aboutSoftWare"), JOptionPane.INFORMATION_MESSAGE);
+                int isOk = JOptionPane.showConfirmDialog(MainFrame.ins,"确定要执行xls，来影响数据库？");
+				if(isOk == 0 )
+				{
+					SwingUtilities.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							System.out.println("正在解析，并插入数据库");
+							MainFrame.ins.tlable.setText("点击之后");
+						}
+					});
+				}
             }
         });
         help.add(aboutSoftWareItem);

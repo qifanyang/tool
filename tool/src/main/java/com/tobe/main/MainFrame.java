@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.UIManager;
 
 import com.tobe.ui.menu.TopMenu;
@@ -14,6 +15,7 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	public static MainFrame ins; 
+	public static JLabel tlable;
 	public MainFrame() {
 	        initComponents();
 //	        designer.newPanel();
@@ -38,7 +40,8 @@ public class MainFrame extends JFrame {
 	        TopMenu menu = new TopMenu();
 	        setJMenuBar(menu);
 	        getContentPane().add(new LeftPanel(), java.awt.BorderLayout.WEST);
-
+	        tlable = new JLabel("点击之前");
+	        getContentPane().add(tlable, java.awt.BorderLayout.NORTH);
 	        pack();
 	    }// </editor-fold>//GEN-END:initComponents
 	    
