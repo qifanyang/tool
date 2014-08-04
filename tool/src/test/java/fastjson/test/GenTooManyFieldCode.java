@@ -9,8 +9,10 @@ import java.io.FileOutputStream;
 public class GenTooManyFieldCode {
 
 	public static void main(String[] args) {
-		String path = "D:/dev/neworkspace/zmy/src/fastjson/test/TestBean.java";
-		int fieldNum = 1000;
+		//C:\Users\Administrator\git\tool\tool\src\test\java\fastjson\test\TestBean.java
+		
+		String path = "C:\\Users\\Administrator\\git\\tool\\tool\\src\\test\\java\\fastjson\\test\\TestBean.java";
+		int fieldNum = 400;
 		
 		StringBuilder builder = new StringBuilder();
 		 builder.append("package fastjson.test; \r\n").append("public class TestBean {\r\n");
