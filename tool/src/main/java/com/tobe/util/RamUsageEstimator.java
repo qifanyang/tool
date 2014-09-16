@@ -106,7 +106,7 @@ public final class RamUsageEstimator {
    */
   private static final Map<Class<?>,Integer> primitiveSizes;
   static {
-    primitiveSizes = new IdentityHashMap<>();
+    primitiveSizes = new IdentityHashMap();
     primitiveSizes.put(boolean.class, Integer.valueOf(NUM_BYTES_BOOLEAN));
     primitiveSizes.put(byte.class, Integer.valueOf(NUM_BYTES_BYTE));
     primitiveSizes.put(char.class, Integer.valueOf(NUM_BYTES_CHAR));
