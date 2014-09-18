@@ -36,15 +36,21 @@ public class CodeBuilderHandler implements Handler {
 	private Configuration cfg;
 
 	public CodeBuilderHandler() {
+		
+	}
+
+	// paras参数的顺序为----->bean msg handler
+	@Override
+	public void action(ActionContext context, Object... paras) {
+
 		try {
 			cfg = new Configuration();
 			cfg.setDefaultEncoding("UTF-8");
 			// System.out.println(System.getProperty("user.dir"));
 //			File path = new File(System.getProperty("user.dir") + "/resource/java_ftl/mina");
-			File path = new File(System.getProperty("user.dir") + "/resource/java_ftl/netty");
+			File path = new File(System.getProperty("user.dir") + "/resource/java_ftl/" + context.getConfig().getNio().toLowerCase());
 			// File path = new File(System.getProperty("user.dir") +
 			// "/resource/as_ftl/");
-
 			
 			// 在插件中寻找资源文件位置
 			// org.osgi.framework.Bundle bundle =
@@ -60,12 +66,7 @@ public class CodeBuilderHandler implements Handler {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	// paras参数的顺序为----->bean msg handler
-	@Override
-	public void action(ActionContext context, Object... paras) {
-
+		
 		Object obj = context.getNode().get("file");
 		File file = (File) obj;// 消息文件
 		MessageXMLLoader loader = new MessageXMLLoader();

@@ -16,7 +16,7 @@ import javax.swing.tree.TreePath;
 
 import com.tobe.actions.ActionContext;
 import com.tobe.actions.GenCodeDialogAction;
-import com.tobe.config.CommCofig;
+import com.tobe.config.ProjectConfig;
 import com.tobe.ui.tree.IconTreeCellRender;
 import com.tobe.ui.tree.MTreeModel;
 import com.tobe.ui.tree.MTreeNode;
@@ -159,7 +159,7 @@ public class TreePanel extends JPanel {
 					GenCodeDialogAction action = new GenCodeDialogAction();
 					ActionContext context = new ActionContext();
 					context.setNode(node);
-					context.setConfig(new CommCofig());//TODO commconfig这里是配置的
+					context.setConfig(new ProjectConfig());//TODO commconfig这里是配置的
 					action.setContext(context);
 					genCodeItem.addActionListener(action);
 					

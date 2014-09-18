@@ -1,12 +1,9 @@
 package com.tobe.actions;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.event.WindowStateListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -14,13 +11,11 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.TitledBorder;
 
 import com.tobe.handler.CodeBuilderHandler;
-import com.tobe.main.MainFrame;
 import com.tobe.util.IconRes;
 import com.tobe.util.UI;
 
@@ -40,7 +35,6 @@ public class GenCodeDialogAction implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("gen code...");
 		if(dialog != null){
 			dialog.setVisible(true);
 		}else {
@@ -91,7 +85,7 @@ public class GenCodeDialogAction implements ActionListener {
 	private JPanel createWorldJPanel(){
 		JPanel worldPanel = new JPanel();
 		worldPanel.setLayout(new BorderLayout());
-		worldOpPanel =new OptionPanel();
+		worldOpPanel = new OptionPanel();
 		worldPanel.add(worldOpPanel);
 		return worldPanel;
 	}

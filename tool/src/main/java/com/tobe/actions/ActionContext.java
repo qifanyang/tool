@@ -2,14 +2,14 @@ package com.tobe.actions;
 
 import java.awt.Component;
 
-import com.tobe.config.CommCofig;
+import com.tobe.config.ProjectConfig;
 import com.tobe.ui.tree.MTreeNode;
 
 public class ActionContext {
 	
 	private MTreeNode node;
 	
-	private CommCofig config;
+	private ProjectConfig config;
 	
 	private Component attachComponent;
 
@@ -21,11 +21,11 @@ public class ActionContext {
 		this.node = node;
 	}
 
-	public CommCofig getConfig() {
+	public ProjectConfig getConfig() {
 		return config;
 	}
 
-	public void setConfig(CommCofig config) {
+	public void setConfig(ProjectConfig config) {
 		this.config = config;
 	}
 
