@@ -8,7 +8,7 @@ public class BasicRowProcessor implements RowProcessor {
 
 	private static final BeanProcessor defaultConvert = new BeanProcessor();
 
-	private static final BasicRowProcessor instance = new BasicRowProcessor();
+//	private static final BasicRowProcessor instance = new BasicRowProcessor();
 
 	/**
 	 * Use this to process beans.
@@ -58,7 +58,7 @@ public class BasicRowProcessor implements RowProcessor {
 	        List<String> rsmd = rs.getHeaders();
 	        int cols = rsmd.size();
 
-	        for (int i = 1; i <= cols; i++) {
+	        for (int i = 0; i < cols; i++) {
 	            String columnName = rsmd.get(i);
 //	            if (null == columnName || 0 == columnName.length()) {
 //	              columnName = rsmd.getColumnName(i);

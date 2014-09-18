@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellValue;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -63,15 +61,19 @@ public class ExcelResultSet{
 		this.wb = wb;
 	}
 
+	public Workbook getWb() {
+		return wb;
+	}
 	public int getInt(int columnIndex){
 		Cell cell = cell(columnIndex);
-		int cellType = cell.getCellType();
-		if(cellType == Cell.CELL_TYPE_FORMULA){
-			FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
-			CellValue cellValue = evaluator.evaluate(cell);
-			return Double.valueOf(cellValue.getNumberValue()).intValue();
-		}
-		return Double.valueOf(cell(columnIndex).getNumericCellValue()).intValue();
+//		int cellType = cell.getCellType();
+//		if(cellType == Cell.CELL_TYPE_FORMULA){
+//			FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
+//			CellValue cellValue = evaluator.evaluate(cell);
+//			return Double.valueOf(cellValue.getNumberValue()).intValue();
+//		}
+//		return Double.valueOf(cell(columnIndex).getNumericCellValue()).intValue();
+		return ExlUtils.getIntRealValue(this, cell);
 	}
 	
 	public int getInt(String columnLabel){
@@ -80,13 +82,14 @@ public class ExcelResultSet{
 	
 	public String getString(int columnIndex){
 		Cell cell = cell(columnIndex);
-		int cellType = cell.getCellType();
-		if(cellType == Cell.CELL_TYPE_FORMULA){
-			FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
-			CellValue cellValue = evaluator.evaluate(cell);
-			return cellValue.getStringValue();
-		}
-		return cell(columnIndex).toString().trim();
+//		int cellType = cell.getCellType();
+//		if(cellType == Cell.CELL_TYPE_FORMULA){
+//			FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
+//			CellValue cellValue = evaluator.evaluate(cell);
+//			return cellValue.getStringValue();
+//		}
+//		return cell(columnIndex).toString().trim();
+		return ExlUtils.getStringRealValue(this, cell);
 	}
 	
 	public String getString(String columnLabel){
@@ -94,7 +97,13 @@ public class ExcelResultSet{
 	}
 
 	public Object getObject(int index) {
-		return cell(index).toString();
+//		return cell(index).toString();
+		return ExlUtils.getObjectRealValue(this, cell(index));
+	}
+	
+	public Object getObject(String index) {
+//		return cell(index).toString();
+		return ExlUtils.getObjectRealValue(this, cell(index(index)));
 	}
 	
 	

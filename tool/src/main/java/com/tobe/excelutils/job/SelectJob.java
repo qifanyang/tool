@@ -39,7 +39,7 @@ public class SelectJob implements IJob<ExcelResultSet>{
 	
 				boolean isFirstRow = true;
 				while (rowIterator.hasNext()) {
-					boolean addRow = false;
+					boolean addRow = false;//默认该行记录不加入结果集,rowFilter判断是否加入
 					int titleIndex = 0;
 					Row row = rowIterator.next();
 					Iterator<Cell> cellIterator = row.cellIterator();
@@ -62,7 +62,7 @@ public class SelectJob implements IJob<ExcelResultSet>{
 							}
 							
 							//空白不会到这里
-							addRow = sql.rowFilter(rs.getHeaders(), cell, titleIndex);
+							addRow = sql.whereFilter(rs, cell, titleIndex);
 							if(!addRow){
 								break;
 							}
@@ -74,7 +74,7 @@ public class SelectJob implements IJob<ExcelResultSet>{
 					// list.add(instance);
 					// }
 					//不是第一行,不是空白,不忽略
-					if (!isFirstRow && !isBlank && !addRow) {
+					if (!isFirstRow && !isBlank && addRow) {
 						rs.getRowList().add(row);
 					}
 	

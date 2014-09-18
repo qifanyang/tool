@@ -1,7 +1,6 @@
 package com.tobe.excelutils.handler;
 
 
-import com.tobe.excelutils.BasicRowProcessor;
 import com.tobe.excelutils.ExcelResultSet;
 import com.tobe.excelutils.RowProcessor;
 
@@ -13,7 +12,7 @@ public class BeanHandler<T> implements ExcelSetHandler<T> {
 
 	public BeanHandler(Class<T> type) {
 		this.type = type;
-		this.convert = new BasicRowProcessor();
+		this.convert = ArrayHandler.ROW_PROCESSOR;
 	}
 
 	@Override

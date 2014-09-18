@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 
 public class SelectSQL implements ISQL {
 
@@ -63,16 +62,47 @@ public class SelectSQL implements ISQL {
 	}
 	
 	//表达式还没有处理,需要把方法提取到Utils中
-	public boolean rowFilter(List<String> titles, Cell cell, int titleIndex){
-		if(wheres.size() == 0)return true;//全部显示
-		
-		String t = titles.get(titleIndex).toLowerCase();
-		Object object = wheres.get(t);//name = kkkkk
-		if(object != null){
-			 if(cell.toString().equals(object.toString())){//B5 相等表示忽略
-				 return false;
-			 }
+	private boolean isAddRow = true;//配合where子句,判断是否将该行加入结果集中
+	public boolean isAddRow() {
+		return isAddRow;
+	}
+	/**
+	 * where("name", "xiaoming");
+	 *  where子句表示值等于value才放入结果集,否则不放入
+	 * @param titles
+	 * @param cell
+	 * @param titleIndex
+	 * @return
+	 */
+	public boolean whereFilter(ExcelResultSet rs, Cell cell, int titleIndex){
+		if(wheres.size() == 0){
+			isAddRow = true;
+			return true;//没有where字段,全部显示
 		}
+		
+		//这里一行会调用多次,只有当匹配的字段值相等才把该行记录加入结果集中
+		String t = rs.getHeaders().get(titleIndex).toLowerCase();
+		if(!wheres.containsKey(t)){
+			return true;
+		}else{
+			Object object = wheres.get(t);//name = kkkkk
+			if(object != null){//找到需要的字段,判断值,若不等,返回false,提前结束该行的扫描
+//				if(!cell.toString().equals(object.toString())){//
+//					isAddRow = false;
+//					return false;
+//				}
+				if(!ExlUtils.getObjectRealValue(rs, cell).equals(object.toString())){//
+					isAddRow = false;
+					return false;
+				}
+			}
+		}
+		
+		
+		//当扫描到最后一个字段,还是没有匹配到,表示where子句列明出错,抛出错误
+		
+		
+		//没有在where中也添加到结果集中
 		return true;
 		
 	}

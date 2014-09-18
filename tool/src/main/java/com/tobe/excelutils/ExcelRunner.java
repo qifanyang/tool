@@ -9,16 +9,15 @@ import com.tobe.excelutils.job.SelectJob;
 public class ExcelRunner {
 
 	private InputStream dataSource;
+	
+	private ExcelResultSet rs = new ExcelResultSet();
 
 	public ExcelRunner(InputStream dataSource) {
 		this.dataSource = dataSource;
 	}
 
 	public ExcelRunner(String path) {
-		if (!path.startsWith("/")) {
-			path += path;
-		}
-		dataSource = getClass().getResourceAsStream(path);
+		dataSource = ExlUtils.getDataSource(path);
 	}
 
 	public InputStream getDataSource() {
@@ -29,6 +28,9 @@ public class ExcelRunner {
 		this.dataSource = dataSource;
 	}
 
+	public ExcelResultSet getRs() {
+		return rs;
+	}
 	//
 	public <T> T query(ISQL sql, ExcelSetHandler<T> rsh, Object... params) throws Exception {
 		return query(sql,true, rsh, params);
@@ -47,7 +49,7 @@ public class ExcelRunner {
 			throw new RuntimeException("暂时不支持该操作");
 		}
 		
-		ExcelResultSet rs = job.excute();
+		rs = job.excute();
 		result = rsh.handle(rs);
 		
 		if(closeIns){

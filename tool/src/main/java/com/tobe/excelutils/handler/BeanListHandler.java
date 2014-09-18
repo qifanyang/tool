@@ -2,7 +2,6 @@ package com.tobe.excelutils.handler;
 
 import java.util.List;
 
-import com.tobe.excelutils.BasicRowProcessor;
 import com.tobe.excelutils.ExcelResultSet;
 import com.tobe.excelutils.RowProcessor;
 
@@ -15,7 +14,7 @@ public class BeanListHandler<T> implements ExcelSetHandler<List<T>> {
 
 	public BeanListHandler(Class<T> type) {
 		this.type = type;
-		this.convert = new BasicRowProcessor();
+		this.convert = ArrayHandler.ROW_PROCESSOR;
 	}
 
 	
