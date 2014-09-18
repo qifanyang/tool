@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.tobe.util.IconRes;
-import com.tobe.util.UIUtil;
+import com.tobe.util.UI;
 
 /**
  * 支持多个选项的dialog
@@ -95,7 +95,7 @@ public class OptionDialog{
 		dialog.setIconImage(IconRes.IMAGE_APP);
 		dialog.setModal(true);
 		dialog.setSize(400, 200);
-		UIUtil.setCompentToCenter(dialog);
+		UI.setCompentToCenter(dialog);
 		dialog.setVisible(true);
 		return selected;
 	}

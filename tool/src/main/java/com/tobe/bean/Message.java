@@ -3,8 +3,11 @@ package com.tobe.bean;
 import java.util.List;
 import java.util.Set;
 
-public class Message
-{
+/**
+ * 消息描述
+ * 
+ */
+public class Message {
 
 	private int id;
 	private String type;
@@ -13,100 +16,81 @@ public class Message
 	private String explain;
 	private String queue;
 	private String server;
-	private List fields;
+	private List<Field> fields;
 	private Set imports;
 
-	public Message()
-	{
+	public Message() {
 	}
 
-	public int getId()
-	{
+	public int getId() {
 		return id;
 	}
 
-	public void setId(int id)
-	{
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getType()
-	{
+	public String getType() {
 		return type;
 	}
 
-	public void setType(String type)
-	{
+	public void setType(String type) {
 		this.type = type;
 	}
 
-	public String getMessageName()
-	{
+	public String getMessageName() {
 		return messageName;
 	}
 
-	public void setMessageName(String messageName)
-	{
+	public void setMessageName(String messageName) {
 		this.messageName = messageName;
 	}
 
-	public String getPackageName()
-	{
+	public String getPackageName() {
 		return packageName;
 	}
 
-	public void setPackageName(String packageName)
-	{
+	public void setPackageName(String packageName) {
 		this.packageName = packageName;
 	}
 
-	public List getFields()
-	{
+	public List<Field> getFields() {
 		return fields;
 	}
 
-	public void setFields(List fields)
-	{
+	public void setFields(List<Field> fields) {
 		this.fields = fields;
 	}
 
-	public String getExplain()
-	{
+	public String getExplain() {
 		return explain;
 	}
 
-	public void setExplain(String explain)
-	{
+	public void setExplain(String explain) {
 		this.explain = explain;
 	}
 
-	public String getQueue()
-	{
+	public String getQueue() {
 		return queue;
 	}
 
-	public void setQueue(String queue)
-	{
+	public void setQueue(String queue) {
 		this.queue = queue;
 	}
 
-	public String getServer()
-	{
+	public String getServer() {
 		return server;
 	}
 
-	public void setServer(String server)
-	{
+	public void setServer(String server) {
 		this.server = server;
 	}
 
-	public Set getImports()
-	{
+	public Set getImports() {
 		return imports;
 	}
 
-	public void setImports(Set imports)
-	{
+	public void setImports(Set imports) {
 		this.imports = imports;
 	}
 }

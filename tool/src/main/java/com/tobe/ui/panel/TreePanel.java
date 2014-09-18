@@ -20,7 +20,7 @@ import com.tobe.config.CommCofig;
 import com.tobe.ui.tree.IconTreeCellRender;
 import com.tobe.ui.tree.MTreeModel;
 import com.tobe.ui.tree.MTreeNode;
-import com.tobe.util.UIUtil;
+import com.tobe.util.UI;
 
 /**
  * 树形面板
@@ -41,10 +41,11 @@ public class TreePanel extends JPanel {
 		//TODO 修改icon图标
 		
 		
+		//给树形面板添加事件监听
 		mTree.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
-			if (e.getButton() == MouseEvent.BUTTON3) {
+			if (e.getButton() == MouseEvent.BUTTON3) {//右击
 			    int x = e.getX();
 			    int y = e.getY();
 			    TreePath closestPathForLocation = mTree.getClosestPathForLocation(x, y);
@@ -147,8 +148,8 @@ public class TreePanel extends JPanel {
 					popupMenu = leafPop;
 				}else {
 					popupMenu = new JPopupMenu();
-					final JMenuItem genCodeItem = new JMenuItem(UIUtil.getName("gencode"));
-					final JMenuItem refreshItem = new JMenuItem(UIUtil.getName("refreshfile"));
+					final JMenuItem genCodeItem = new JMenuItem(UI.translate("gencode"));
+					final JMenuItem refreshItem = new JMenuItem(UI.translate("refreshfile"));
 					popupMenu.add(genCodeItem);
 					popupMenu.add(refreshItem);
 					leafPop = popupMenu;
@@ -169,10 +170,10 @@ public class TreePanel extends JPanel {
 					popupMenu = noleafPop;
 				}else {
 					popupMenu = new JPopupMenu();
-					final JMenu lastModifyItem = new JMenu(UIUtil.getName("recentlymodified"));
-					final JMenuItem todayModifyItem = new JMenuItem(UIUtil.getName("inthistoday"));
-					final JMenuItem weekModifyItem = new JMenuItem(UIUtil.getName("inthisweek"));
-					final JMenuItem monthModifyItem = new JMenuItem(UIUtil.getName("inthismonth"));
+					final JMenu lastModifyItem = new JMenu(UI.translate("recentlymodified"));
+					final JMenuItem todayModifyItem = new JMenuItem(UI.translate("inthistoday"));
+					final JMenuItem weekModifyItem = new JMenuItem(UI.translate("inthisweek"));
+					final JMenuItem monthModifyItem = new JMenuItem(UI.translate("inthismonth"));
 					lastModifyItem.add(todayModifyItem);
 					lastModifyItem.add(weekModifyItem);
 					lastModifyItem.add(monthModifyItem);

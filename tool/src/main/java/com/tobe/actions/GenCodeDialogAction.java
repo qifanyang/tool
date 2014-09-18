@@ -19,10 +19,10 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.TitledBorder;
 
-import com.tobe.handler.GenCodeHandler;
+import com.tobe.handler.CodeBuilderHandler;
 import com.tobe.main.MainFrame;
 import com.tobe.util.IconRes;
-import com.tobe.util.UIUtil;
+import com.tobe.util.UI;
 
 /**
  * 生成代码
@@ -62,7 +62,7 @@ public class GenCodeDialogAction implements ActionListener {
 			tabbedPane.add("Gate Files", gatePanel);
 			tabbedPane.add("World Files", worldPanel);
 			
-			dialog.setTitle(UIUtil.getName("gencode"));
+			dialog.setTitle(UI.translate("gencode"));
 			dialog.add(tabbedPane);
 			dialog.setIconImage(IconRes.IMAGE_APP);
 			dialog.setSize(500, 250);
@@ -106,7 +106,7 @@ public class GenCodeDialogAction implements ActionListener {
 	}
 
 	/**
-	 * 关闭对话框或点击取消需要重置:
+	 * 关闭对话框或点击取消需要重置勾选的代码生成checkbox
 	 * 
 	 */
 	private static void closeDialogReset() {
@@ -132,23 +132,23 @@ public class GenCodeDialogAction implements ActionListener {
 		    selectPanel.setBorder(border);
 		    selectPanel.setLayout(new BoxLayout(selectPanel, BoxLayout.Y_AXIS));
 		    
-		    beanCB = new JCheckBox(UIUtil.NAME_AUTO_MAKE + "bean");
-		    msgCB = new JCheckBox(UIUtil.NAME_AUTO_MAKE + "message");
-			handlerCB = new JCheckBox(UIUtil.NAME_AUTO_MAKE + "handler");
+		    beanCB = new JCheckBox(UI.NAME_AUTO_MAKE + "bean");
+		    msgCB = new JCheckBox(UI.NAME_AUTO_MAKE + "message");
+			handlerCB = new JCheckBox(UI.NAME_AUTO_MAKE + "handler");
 			selectPanel.add(beanCB);
 		    selectPanel.add(msgCB);
 		    selectPanel.add(handlerCB);
 		    
 		    
-		    JButton ok = new JButton(UIUtil.NAME_OK);
-		    JButton cancel = new JButton(UIUtil.NAME_CANEL);
+		    JButton ok = new JButton(UI.NAME_OK);
+		    JButton cancel = new JButton(UI.NAME_CANEL);
 		    JPanel btnPanel = new JPanel();
 //		    btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.X_AXIS));
 		    btnPanel.add(ok);
 		    btnPanel.add(cancel);
 		
 		    
-		    JLabel label = new JLabel(UIUtil.getName("messagepool") + "		com.game.message.pool.MessagePool");
+		    JLabel label = new JLabel(UI.translate("messagepool") + "		com.game.message.pool.MessagePool");
 		    add(label, BorderLayout.NORTH);
 		    add(selectPanel, BorderLayout.CENTER);
 		    add(btnPanel, BorderLayout.SOUTH);
@@ -157,7 +157,7 @@ public class GenCodeDialogAction implements ActionListener {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					GenCodeHandler handler = new GenCodeHandler();
+					CodeBuilderHandler handler = new CodeBuilderHandler();
 					handler.action(context, beanCB.isSelected(), msgCB.isSelected(), handlerCB.isSelected());
 					dialog.dispose();
 					closeDialogReset();

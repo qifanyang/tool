@@ -1,5 +1,7 @@
 package com.tobe.project;
 
+import java.io.File;
+
 public interface IProject {
 	
 	String getName();
@@ -9,7 +11,7 @@ public interface IProject {
 	 * @param name xx.yy.zz.Mm.java
 	 * @return
 	 */
-	IFile getFile(String name);
+	File getFile(String name);
 	
 	/**
 	 * 获得一个包
@@ -18,6 +20,12 @@ public interface IProject {
 	 */
 	IFolder	getPackage(String name);
 	
-	IFolder getSrc();
+	/**
+	 * 查询源代码目录路径:
+	 * maven项目  /src/main/java
+	 * eclipse默认项目 /src
+	 * @return
+	 */
+	IFolder getSourceCode();
 	
 }

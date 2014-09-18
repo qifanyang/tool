@@ -3,13 +3,12 @@ package com.tobe.bean;
 import java.util.List;
 import java.util.Set;
 
-public class Bean
-{
+public class Bean{
 
 	private String beanName;
 	private String packageName;
 	private String explain;
-	private List fields;
+	private List<Field> fields;
 	private Set imports;
 
 	public Bean()
@@ -36,12 +35,12 @@ public class Bean
 		this.packageName = packageName;
 	}
 
-	public List getFields()
+	public List<Field> getFields()
 	{
 		return fields;
 	}
 
-	public void setFields(List fields)
+	public void setFields(List<Field> fields)
 	{
 		this.fields = fields;
 	}

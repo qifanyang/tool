@@ -1,10 +1,8 @@
 package com.tobe.main;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import javax.swing.tree.TreePath;
 
 import com.tobe.ui.panel.TreePanel;
@@ -33,10 +31,10 @@ public class LeftPanel extends JPanel {
 		add(treePanel);
 		
 		//统一设置面板引用
-		Manager.getIns().setTreePanel(treePanel);
+		ToolManager.getMe().setTreePanel(treePanel);
 		
-		//TODO test
-		Manager.getIns().loadMsgFiles("D:/dev/neworkspace/QMR_Resource/resource/message");
+		//默认加载资源
+		ToolManager.getMe().loadMsgFiles("D:/resource/resource/message");
 		MTreeNode root = (MTreeNode) treePanel.getmModel().getRoot();
 		root.expandAll(treePanel.getmTree(), new TreePath(root), true);
 		treePanel.updateUI();
