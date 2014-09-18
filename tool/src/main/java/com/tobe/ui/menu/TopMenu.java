@@ -136,7 +136,6 @@ public class TopMenu extends JMenuBar {
 						@Override
 						public void run() {
 							System.out.println("正在解析，并插入数据库");
-							MainFrame.ins.tlable.setText("点击之后");
 						}
 					});
 				}
