@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 import com.game.message.Bean;
 
-import org.apache.mina.core.buffer.IoBuffer;
+import org.jboss.netty.buffer.ChannelBuffer;
 
 /** 
- * @author Commuication Auto Maker
+ * @author Auto Generated , Do Not Manually Modify
  * 
  * @version 1.0.0
  * 
@@ -41,7 +41,7 @@ public class ${className} extends Bean {
 	/**
 	 * 写入字节缓存
 	 */
-	public boolean write(IoBuffer buf){
+	public boolean write(ChannelBuffer buf){
 		<#list fields as field>
 		<#if field.listType==1>
 		//${field.explain}
@@ -88,7 +88,7 @@ public class ${className} extends Bean {
 	/**
 	 * 读取字节缓存
 	 */
-	public boolean read(IoBuffer buf){
+	public boolean read(ChannelBuffer buf){
 		<#list fields as field>
 		<#if field.listType==1>
 		//${field.explain}

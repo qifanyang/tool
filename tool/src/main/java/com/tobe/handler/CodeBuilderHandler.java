@@ -10,6 +10,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.tobe.actions.ActionContext;
 import com.tobe.bean.Bean;
 import com.tobe.bean.Field;
@@ -28,6 +31,8 @@ import freemarker.template.TemplateException;
 
 public class CodeBuilderHandler implements Handler {
 
+	private static final Log log = LogFactory.getLog(CodeBuilderHandler.class);
+	
 	private Configuration cfg;
 
 	public CodeBuilderHandler() {
@@ -35,7 +40,8 @@ public class CodeBuilderHandler implements Handler {
 			cfg = new Configuration();
 			cfg.setDefaultEncoding("UTF-8");
 			// System.out.println(System.getProperty("user.dir"));
-			File path = new File(System.getProperty("user.dir") + "/resource/java_ftl/mina");
+//			File path = new File(System.getProperty("user.dir") + "/resource/java_ftl/mina");
+			File path = new File(System.getProperty("user.dir") + "/resource/java_ftl/netty");
 			// File path = new File(System.getProperty("user.dir") +
 			// "/resource/as_ftl/");
 
@@ -105,10 +111,6 @@ public class CodeBuilderHandler implements Handler {
 							cancel = true;// cancel
 						}
 					} else {
-//						IFolder folder = srcfolder.getFolder(bean.getPackageName() + ".bean");
-//						if (!folder.exists()) {
-//							folder.create();
-//						}
 						createBean(temp, project, bean);
 					}
 				}
@@ -145,10 +147,6 @@ public class CodeBuilderHandler implements Handler {
 							cancel = true;// cancel
 						}
 					} else {
-//						IFolder folder = srcfolder.getFolder(message.getPackageName() + ".message");
-//						if (!folder.exists()) {
-//							folder.create();
-//						}
 						createMessage(temp, project, message, loader.getBeans());
 					}
 
@@ -186,10 +184,6 @@ public class CodeBuilderHandler implements Handler {
 							cancel = true;// cancel
 						}
 					} else {
-//						IFolder folder = srcfolder.getFolder(message.getPackageName() + ".handler");
-//						if (!folder.exists()) {
-//							folder.create();
-//						}
 						createHandler(temp, project, message);
 					}
 				}
@@ -202,7 +196,7 @@ public class CodeBuilderHandler implements Handler {
 	}
 
 	private void createBean(Template temp, IProject project, Bean bean) {
-		System.out.println("创建Bean...........");
+		log.info("创建Bean...........");
 		try {
 			HashMap<String, Object> root = new HashMap<String, Object>();
 			root.put("package", bean.getPackageName());
@@ -220,11 +214,14 @@ public class CodeBuilderHandler implements Handler {
 		} catch (TemplateException e) {
 			e.printStackTrace();
 		}
-		System.out.println("创建Bean完成...........");
+		log.info("创建Bean完成...........");
 	}
 
 	private void createMessage(Template temp, IProject project, Message message, HashMap<String, Bean> beans) {
-		System.out.println("创建Message...........");
+		log.info("创建Message..........." + message.getMessageName());
+		if(message.getMessageName().equalsIgnoreCase("ResBuffs")){
+			System.out.println("");
+		}
 		try {
 			HashMap<String, Object> root = new HashMap<String, Object>();
 			root.put("messageId", Integer.valueOf(message.getId()));
@@ -264,7 +261,7 @@ public class CodeBuilderHandler implements Handler {
 		} catch (TemplateException e) {
 			e.printStackTrace();
 		}
-		System.out.println("创建Message完成...........");
+		log.info("创建Message完成...........");
 	}
 
 	/**
@@ -274,7 +271,7 @@ public class CodeBuilderHandler implements Handler {
 	 * @param message
 	 */
 	private void createHandler(Template temp, IProject project, Message message) {
-		System.out.println("创建Handler...........");
+		log.info("创建Handler...........");
 		try {
 			HashMap<String, Object> root = new HashMap<String, Object>();
 			root.put("package", message.getPackageName());
@@ -297,7 +294,7 @@ public class CodeBuilderHandler implements Handler {
 		} catch (TemplateException e) {
 			e.printStackTrace();
 		}
-		System.out.println("创建Handler完成...........");
+		log.info("创建Handler完成...........");
 	}
 
 }

@@ -12,7 +12,7 @@ import com.game.command.Handler;
 import com.game.message.Message;
 
 /** 
- * @author Commuication Auto Maker
+ * @author Auto Generated , Do Not Manually Modify
  * 
  * @version 1.0.0
  * 

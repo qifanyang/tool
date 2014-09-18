@@ -1,6 +1,7 @@
 package ${package}.handler;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 <#if imports??>
 <#list imports as import>
@@ -9,9 +10,14 @@ import ${import};
 </#if>
 import com.game.command.Handler;
 
+/** 
+ * 重复生成,注意是否覆盖添加的消息处理
+ * @author With You
+ * 
+ */
 public class ${className}Handler extends Handler{
 
-	private final static Logger log = Logger.getLogger(${className}Handler.class);
+	private final static Log log = LogFactory.getLog(${className}Handler.class);
 
 	public void action(){
 		try{
