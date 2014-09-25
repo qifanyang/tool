@@ -20,9 +20,9 @@ public class TestCreate {
 	}
 
 	private void run(TestBean log) {
-		if (isNeedCreatTable(log.getTime(), log)) {
+		if (isNeedCreatTable(log)) {
 			// 创建表
-			String createTableSql = buildCreateTableSql(log.getTime(), log);
+			String createTableSql = buildCreateTableSql(log);
 			System.out.println(createTableSql);
 
 		}
@@ -37,7 +37,8 @@ public class TestCreate {
 	private static SimpleDateFormat YYYY_MM = new SimpleDateFormat("yyyyMM");
 	private static SimpleDateFormat YYYY = new SimpleDateFormat("yyyy");
 
-	public String buildTableName(long time, AutoLog log) {
+	public String buildTableName(AutoLog log) {
+		long time = log.getTime();
 		String tablename = log.getClass().getSimpleName();
 		switch (log.rollingPeriod()) {
 		case DAY:
@@ -54,29 +55,47 @@ public class TestCreate {
 		return tablename;
 	}
 
+	/**
+	 * java数据类型到mysql数据类型的映射
+	 */
 	public static Map<String, String> j2mTypeMap = new HashMap<String, String>();
 	static {
-		j2mTypeMap.put("String", "VARCHAR");
-		j2mTypeMap.put("int", "INTEGER");
-		j2mTypeMap.put("Integer", "INTEGER");
-		j2mTypeMap.put("long", "BIGINT");
-		j2mTypeMap.put("Long", "BIGINT");
+		//数字型
 		j2mTypeMap.put("byte", "TINYINT");
 		j2mTypeMap.put("Byte", "TINYINT");
 		j2mTypeMap.put("short", "SMALLINT");
 		j2mTypeMap.put("Short", "SMALLINT");
+		j2mTypeMap.put("int", "INTEGER");
+		j2mTypeMap.put("Integer", "INTEGER");
+		j2mTypeMap.put("long", "BIGINT");
+		j2mTypeMap.put("Long", "BIGINT");
+		
+		j2mTypeMap.put("float", "FLOAT");
+		j2mTypeMap.put("Float", "FLOAT");
+		j2mTypeMap.put("double", "DOUBLE");
+		j2mTypeMap.put("Double", "DOUBLE");
+		
+		
+		//文本型
+		j2mTypeMap.put("String", "VARCHAR");
 		j2mTypeMap.put("TEXT", "TEXT");
 		j2mTypeMap.put("LONGTEXT", "LONGTEXT");
+		
+		//时间
+		j2mTypeMap.put("Date", "DATETIME");
+		
+		//二进制
+		j2mTypeMap.put("byte[]", "BLOB");
 		// TODO ....
 	}
 
-	public String buildCreateTableSql(long time, AutoLog log) {
+	public String buildCreateTableSql(AutoLog log) {
 		StringBuilder DDL = new StringBuilder();
-		DDL.append("CREATE TABLE IF NOT EXISTS `").append(buildTableName(time, log)).append("` (\n`id` int(11) NOT NULL AUTO_INCREMENT,\n");
+		DDL.append("CREATE TABLE IF NOT EXISTS `").append(buildTableName(log)).append("` (\n`id` int(11) NOT NULL AUTO_INCREMENT,\n");
 		// for (MetaData metaData : getMetadata()) {
 		// DDL.append("name varchar(20)").append(",\n");
 
-		// 解析字段
+		// 解析包括父类的public字段
 		Field[] fields = log.getClass().getFields();
 		for (Field f : fields) {
 			String fieldName = f.getName();
@@ -116,11 +135,11 @@ public class TestCreate {
 
 					// String 类型, 数据库可以是varchar text longtext
 					if (annotation.type() == FieldType.VARCHAR) {
-						if (annotation.size() == -1) {
-							DDL.append("(50)");
-						} else {
+//						if (annotation.size() == -1) {
+//							DDL.append("(50)");
+//						} else {
 							DDL.append("(").append(annotation.size()).append(")");
-						}
+//						}
 					}
 				}
 				DDL.append(",\n");
@@ -134,7 +153,7 @@ public class TestCreate {
 
 	public String buildInsertSQL(long time, AutoLog log) {
 		// 构建表名
-		String tableName = buildTableName(time, log);
+		String tableName = buildTableName(log);
 //		String fields = "(";
 //		String values = "(";
 		StringBuilder fieldsBuilder = new StringBuilder();
@@ -144,7 +163,7 @@ public class TestCreate {
 			String fieldName = getRealFieldName(f);
 			if(null != fieldName){//null 表示忽略
 				fieldsBuilder.append(fieldName).append(",");
-				valuesBuilder.append(dealValue(f, log)).append(",");
+				valuesBuilder.append(getRealFieldValue(f, log)).append(",");
 			}
 		}
 		
@@ -159,8 +178,8 @@ public class TestCreate {
 
 	public static String oldTableName = "";
 
-	public boolean isNeedCreatTable(long time, AutoLog log) {
-		String newTableName = buildTableName(time, log);
+	public boolean isNeedCreatTable(AutoLog log) {
+		String newTableName = buildTableName(log);
 		if (newTableName.equals(oldTableName)) {
 			return false;
 		}
@@ -187,7 +206,7 @@ public class TestCreate {
 		return annotation.name();
 	}
 	
-	public String dealValue(Field f, AutoLog log){
+	public String getRealFieldValue(Field f, AutoLog log){
 		Object object = null;
 		try {
 			object = f.get(log);

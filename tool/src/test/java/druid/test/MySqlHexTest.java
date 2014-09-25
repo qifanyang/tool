@@ -17,7 +17,7 @@ import com.alibaba.druid.util.JdbcUtils;
 import junit.framework.TestCase;
 
 public class MySqlHexTest extends TestCase {
-    final int COUNT = 800;
+//    final int COUNT = 800;
     
     private String          jdbcUrl;
     private String          user;

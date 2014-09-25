@@ -1,6 +1,5 @@
 package com.tobe.logdb;
 
-import java.lang.reflect.Field;
 import java.util.Date;
 
 public class TestBean  extends AutoLog{
@@ -13,23 +12,28 @@ public class TestBean  extends AutoLog{
 	
 	public int age;
 	
-	
 	public Date date = new Date();
 	
-	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException {
-		//这些对象反映此 Class 对象所表示的类或接口的所有可访问公共字段
-		//如果该 Class 对象表示一个类，则此方法返回该类及其所有超类的公共字段
-		Field[] fields = TestBean.class.getFields();
-		
-		//包括公共、保护、默认（包）访问和私有字段，但不包括继承的字段
-//		Field[] fields = TestBean.class.getDeclaredFields();
-		for(Field f : fields){
-			f.setAccessible(true);
-			//f.getType().getSimpleName(), 这里可以提供字段类型,可以直接转换到MySQL字段
-			System.out.println(f.getType().getSimpleName() + "\t" + f.getName() + "\t value = " + f.get(new TestBean()));
-//			System.out.println(f.getGenericType());
-		}
-	}
+	public String addnew ;
+	public String addnewww ;
+	@Property
+	public String hah ;
+	public int wowo ;
+	
+//	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException {
+//		//这些对象反映此 Class 对象所表示的类或接口的所有可访问公共字段
+//		//如果该 Class 对象表示一个类，则此方法返回该类及其所有超类的公共字段
+//		Field[] fields = TestBean.class.getFields();
+//		
+//		//包括公共、保护、默认（包）访问和私有字段，但不包括继承的字段
+////		Field[] fields = TestBean.class.getDeclaredFields();
+//		for(Field f : fields){
+//			f.setAccessible(true);
+//			//f.getType().getSimpleName(), 这里可以提供字段类型,可以直接转换到MySQL字段
+//			System.out.println(f.getType().getSimpleName() + "\t" + f.getName() + "\t value = " + f.get(new TestBean()));
+////			System.out.println(f.getGenericType());
+//		}
+//	}
 
 
 

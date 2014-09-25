@@ -9,11 +9,29 @@ import java.lang.annotation.Target;
 @Target({ ElementType.FIELD })
 public @interface Property {
 
-	boolean ignore() default false;//不需要记录的字段,换回true
+	/**
+	 * 不需要记录的字段,返回true
+	 * @return	是否忽略
+	 */
+	boolean ignore() default false;
 	
-	String name() default "";//用string.length()==0判断
+	/**
+	 * 用string.length()==0判断是否设置了名字
+	 * @return	字段名字
+	 */
+	String name() default "";
 
-	FieldType type() default FieldType.DEFAULT;//没有设置字段类型,返回个默认值,表示不修改字段类型
+	/**
+	 * 没有设置字段类型,返回个默认值,表示不修改字段类型
+	 * @return
+	 */
+	FieldType type() default FieldType.DEFAULT;
 	
-	int size() default -1;
+	/**
+	 * 字段长度,只对于VARCHAR有效,其它数据库字段该值无效
+	 * @return 字段长度, 默认返回50
+	 */
+	int size() default 50;
+	
+	boolean nullAble() default true;
 }
