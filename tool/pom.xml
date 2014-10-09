@@ -145,6 +145,21 @@
 	  <groupId>com.rabbitmq</groupId>
 	  <artifactId>amqp-client</artifactId>
 	  <version>3.3.5</version>
-</dependency>
+	</dependency>
+	<dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-jms_1.1_spec</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-client</artifactId>
+      <version>5.10.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-nop</artifactId>
+      <version>1.7.5</version>
+    </dependency>
   </dependencies>
 </project>
