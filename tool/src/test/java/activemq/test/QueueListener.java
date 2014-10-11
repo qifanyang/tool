@@ -43,6 +43,8 @@ class QueueListener {
         Destination dest = session.createQueue(destination);//使用队列的方式
         MessageConsumer consumer = session.createConsumer(dest);
         
+        
+        
         long start = System.currentTimeMillis();
         long count = 1;
         System.out.println("Waiting for messages...");

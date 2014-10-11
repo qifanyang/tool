@@ -42,6 +42,7 @@ class TopicListener {
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
         Destination dest = new ActiveMQTopic(destination);//不是队列
         
+//        session.createTopic(topicName)
         MessageConsumer consumer = session.createConsumer(dest);
         consumer = session.createDurableSubscriber((Topic)dest, "sub");
         long start = System.currentTimeMillis();

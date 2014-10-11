@@ -42,14 +42,15 @@ class TopicPublisher {
         }
 
         ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://" + host + ":" + port);
+        factory.setUseAsyncSend(true);
         Connection connection = factory.createConnection(user, password);
         connection.start();
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
       //获取session，destination是一个服务器的queue      destination = session.createQueue(destination); 
         Destination dest = new ActiveMQTopic(destination);
         MessageProducer producer = session.createProducer(dest);
-//        producer.setDeliveryMode(DeliveryMode.PERSISTENT);//使用持久化消息两打的话持久化很慢的
-        producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);//不使用持久化发送256byte的消息每100个用时几毫秒,都是本地测试.无网络延时.差别全部来自数据存储
+        producer.setDeliveryMode(DeliveryMode.PERSISTENT);//使用持久化消息两打的话持久化很慢的
+//        producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);//不使用持久化发送256byte的消息每100个用时几毫秒,都是本地测试.无网络延时.差别全部来自数据存储
         //测试一:DeliveryMode.NON_PERSISTENT
         //启动服务器>publisher发布消息>listener注册>listener无法收到消息,  必须要先订阅才可以接受到消息
         //启动服务器>listener注册>publisher发布消息>listener收到消息
