@@ -1,0 +1,63 @@
+maven使用约定,不同于ant需要指定源文件目录,classes目录
+
+goal列表:
+
+直接打包jar	org.apache.maven.plugins:maven-jar-plugin:2.3.2:jar
+clean	org.apache.maven.plugins:maven-clean-plugin:2.3.2:clean
+
+也可以直接输入 clean 等同于org.apache.maven.plugins:maven-clean-plugin:2.3.2:clean
+
+-Dmaven.test.skip=true 跳过测试
+
+打包时需要指定参数时,使用plugin,这里和指定goal一样
+
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-war-plugin</artifactId>
+    <configuration>
+        <archive>
+            <addMavenDescriptor>false</addMavenDescriptor>
+        </archive>
+        <webResources>
+            <resource>
+                <!-- this is relative to the pom.xml directory -->
+                <directory>src/main/resources/${package.environment}</directory>
+                <targetPath>WEB-INF/classes</targetPath>
+                <filtering>true</filtering><!--true覆盖原来的文件-->
+            </resource>
+        </webResources>
+    </configuration>
+</plugin>
+
+
+针对不同的环境需要指定不同的配置文件,在这配置不同的目录,配置文件放在src/main/resources下面
+
+为了打包时指定配置文件目录,先定义一个变量
+    <properties>
+       <!--默认使用dev下面的配置文件-->
+       <package.environment>dev</package.environment>
+    </properties>
+
+<profiles>
+            <profile>
+                <id>product</id>
+                    <properties>
+                            <package.environment>product</package.environment>
+                    </properties>
+            </profile>
+            <profile>
+                <id>dev</id>
+                    <properties>
+                            <package.environment>dev</package.environment>
+                    </properties>
+            </profile>
+            <profile>
+                <id>qa</id>
+                    <properties>
+                            <package.environment>qa</package.environment>
+                    </properties>
+            </profile>
+</profiles>
+
+打包时使用-P指定profile配置文件
+mvn -Pproduct package <!--打包生产环境的包-->
