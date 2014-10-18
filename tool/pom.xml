@@ -8,7 +8,7 @@
 	<!-- <packaging>jar</packaging> -->
 	<name>tool</name>
 	<url>http://maven.apache.org</url>
-
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -36,6 +36,7 @@
 
 	<!-- 构建配置 -->
 	<build>
+	<!-- http://maven.apache.org/plugins/  maven插件配置 -->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -50,7 +51,6 @@
 							<!-- this is relative to the pom.xml directory,相对与pom.xml目录 -->
 							<!-- 打war包时,配置文件要放到war中,打生产环境的包很方便 -->
 
-							<!-- 游戏配置文件一般单独放到一个目录下,没有打包到jar中 -->
 							<directory>src/main/resources/${package.environment}</directory>
 							<targetPath>WEB-INF/classes</targetPath>
 							<filtering>true</filtering>
@@ -82,12 +82,18 @@
 					<execution>
 						<id>copy-resources</id>
 						<!-- here the phase you need -->
-						<phase>validate</phase>
+						<phase>process-resources</phase>
 						<goals>
+						<!-- process-resources有三个goal , 
+						     resources 自动执行,把 project.build.resources拷贝到 project.build.outputDirectory, 即把资源拷贝到生成的jar中
+							testResources 自动执行
+							copy-resources  手动配置需要拷贝出的配置到指定目录This goal requires that you configure the resources to be copied, and specify the outputDirectory
+						 -->
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
 							<!-- 运行环境需要的配置文件 -->
+							<!-- 游戏配置文件一般单独放到一个目录下,没有打包到jar中 -->
 							<outputDirectory>${basedir}/target/config</outputDirectory>
 							<resources>
 								<resource>
