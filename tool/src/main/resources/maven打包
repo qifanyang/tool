@@ -1,3 +1,5 @@
+http://repo1.maven.org/maven2/archetype-catalog.xml
+
 maven使用约定,不同于ant需要指定源文件目录,classes目录
 
 goal列表:
@@ -61,3 +63,32 @@ clean	org.apache.maven.plugins:maven-clean-plugin:2.3.2:clean
 
 打包时使用-P指定profile配置文件
 mvn -Pproduct package <!--打包生产环境的包-->
+
+
+maven 发布到tomcat
+<build>
+		<finalName>bb</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+	        <plugin>
+	          <groupId>org.apache.tomcat.maven</groupId>
+	          <artifactId>tomcat6-maven-plugin</artifactId>
+	          <version>2.2</version>
+	          <configuration>  
+	           <!-- 如果远程tomcat开启了管理,可以这样发布到远程-->
+                <url>http://localhost:8080/manager</url>  
+                <username>admin</username>  
+                <password>admin</password>  
+                <path>/bb</path>  
+            </configuration>  
+	        </plugin>
+		</plugins>
+	</build>
