@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 public class CodeUtils {
 
+	private String sigleLineNoteRegex = "\\s*[//]{1}";//任意空格+一个'//'
+	private String mutilLineNoteRegex = "\\s*[/**]{1}";//任意空格+一个'/**'  不要用多行注释
 	
 	/**
 	 * 根据方法名字提取方法体代码,只能提取无参方法代码

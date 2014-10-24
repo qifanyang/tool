@@ -4,7 +4,7 @@ import gnu.trove.map.hash.TIntIntHashMap;
 
 import org.junit.Test;
 
-import com.tobe.util.RamUsageEstimator;
+//import com.tobe.util.RamUsageEstimator;
 
 public class TestSize {
 
@@ -12,8 +12,8 @@ public class TestSize {
 	public void test0(){
 		OneOBJ obj = new OneOBJ();
 //		obj.setS("tttt");
-		System.out.println(RamUsageEstimator.shallowSizeOf(obj));
-		System.out.println(RamUsageEstimator.isSupportedJVM());
+//		System.out.println(RamUsageEstimator.shallowSizeOf(obj));
+//		System.out.println(RamUsageEstimator.isSupportedJVM());
 		
 		TIntIntHashMap t1 = new TIntIntHashMap();
 		TIntIntHashMap t2 = new TIntIntHashMap();

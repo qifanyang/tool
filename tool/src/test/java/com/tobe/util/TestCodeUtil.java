@@ -7,12 +7,12 @@ import junit.framework.TestCase;
 public class TestCodeUtil extends TestCase{
 	
 	public void testOne(){
-		String path = "C:/Users/Administrator/git/tool/tool/src/test/java/com/tobe/util/SomeBean.java";
+		String path = "E:/sourcetreerepo/tool/tool/src/test/java/com/tobe/util/SomeBean.java";
 		String code = CodeUtils.extractMethodCode(path, "validate");
 //		System.out.println(code);
 		System.out.println("=======================");
-		code = CodeUtils.extractMethodCode(path, "testone");
-//		System.out.println(code);
+		code = CodeUtils.extractMethodCode(path, "validate");
+		System.out.println(code);
 		try {
 			Method method = SomeBean.class.getMethod("validate");
 			System.out.println(method.toString());
@@ -24,5 +24,6 @@ public class TestCodeUtil extends TestCase{
 			e.printStackTrace();
 		}
 	}
+	
 
 }

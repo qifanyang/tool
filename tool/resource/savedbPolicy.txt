@@ -1,0 +1,13 @@
+存库策略
+
+开启一个Timer,每一秒遍历当前地图所有玩家,如果该玩家数据在cache中
+
+BackPackTimer每秒不停的忘WaitingUpdateQueue中放入玩家对象,里面用一个ConcurrentHashSet保证数据不重复,用ConcurrentLinkedQueue保存对象,实现先进先出,生产者
+
+
+再使用一个Timer没间隔5秒从里面取出上面放入WaitingUpdateQueue的玩家(需要设计取出数量的策略),更改身上的save状态为true,消费者
+
+
+然后在PlayerHeartTimer中每秒判断save状态,为true,保存, 然后更改save状态为false
+
+
