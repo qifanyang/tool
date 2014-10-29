@@ -1,0 +1,47 @@
+LRU = Least Recently Used 近期最少使用算法,用于缓存有限个对象,把不经常使用的对象移除
+
+java中LinkedHashMap实现了LRU,LinkedHashMap(int initialCapacity, float loadFactor, boolean accessOrder) accessOrder为true表示使用LRU
+
+实现使用了一个双向链表,每次放入新元素时都插入到header的前面,需要重写
+ protected boolean removeEldestEntry(Map.Entry<K,V> eldest) {
+        return false;
+    }
+默认返回false,表示不移除,如果返回true,会移除header.after所指向的元素,也就是最老的元素
+
+一般重写removeEldestEntry方法 return size() > 500; 500是LRU需要缓存的元素个数
+
+
+
+测试:
+public class Tt {
+	public static void main(String[] args) {
+		
+		LinkedHashMap<Integer, String> LRU = new LinkedHashMap<Integer, String>(16, 0.75f, true);
+		
+		LRU.put(1, "111");
+		LRU.put(2, "222");
+		LRU.put(3, "333");
+		LRU.put(4, "444");
+		
+		//输出head	1	2	3	4
+		print(LRU);
+		
+		LRU.get(2);
+		
+		//输出head	1	3	4	2
+		print(LRU);
+		
+		
+	}
+	
+	static void print(LinkedHashMap<Integer, String> lru){
+		Iterator<String> iterator = lru.values().iterator();
+		for(;iterator.hasNext();){
+			String next = iterator.next();
+			System.out.print(next);
+			System.out.print("---");
+		}
+		System.out.println("");
+	}
+
+}
