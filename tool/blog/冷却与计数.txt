@@ -1,0 +1,103 @@
+游戏中有许多操作需要有冷却,如:整理背包冷却,攻击冷却
+
+玩家身上有冷却数据Map,key为各种冷却类型,value为冷却对象
+
+1.新增冷却时,身上有该key的冷却,有的话更新该冷却,重新设置冷却对象的开始时间后持续时间
+
+2.新增冷却时,身上没有该key的冷却,新建冷却初始化冷却,设置开始时间,冷却关键字,持续时间
+
+3.查看冷却,直接判断当前时间和冷却开始时间和持续时间的大小
+
+冷却一般添加后都没移除,因为添加的冷却后面几乎都要再次使用,除非明确的移除需要,比如需求是花费元宝移除某个冷却
+
+
+
+
+=====================================================================================================================
+
+
+计数:每天只能操作好多次,某个地图每周只能计入好多次,某个活动一天只能参加一次等等
+
+玩家身上有计数数据Map,key为各种计数类型(枚举),value为计数对象
+
+1.新增计数,玩家身上有该key的计数,重置该计数
+2.新增计数,玩家身上没有该key的计数,创建计数对象并初始化,设置计数类型,计数关键字,开始时间等
+3.查看计数,getCount(Player player, CountTypes type, String key),先reset(count),然后再返回return count.getCount(),没必要在add的时候reset,
+有很多类似需要更新值得操作都是这么做的,比如LRU,不会开启一个线程去更新队列,只会在添加和取值时,附带做一些操作,这样开销小,
+
+计数算法:因计数分为日,周,月,年,永久.比如一个操作一周之内只能进行2次,在一周之后查看该计数时,次数将为0
+
+	/**
+	 * 计数器重置（通过时间判断）
+	 *
+	 * @param count
+	 */
+	private void reset(Count count) {
+		if (count == null || count.getStart() == 0) {
+			return;
+		}
+		if (count.getType() == -1) {
+			return;
+		}
+		
+		long refresh = count.getRefreshTime() * 1000;
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.MILLISECOND, 0);
+		//设置星期一为第一天
+		cal.setFirstDayOfWeek(Calendar.MONDAY);
+
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH);
+		int date = cal.get(Calendar.DATE);
+		
+		
+		int week = cal.getFirstDayOfWeek() - cal.get(Calendar.DAY_OF_WEEK);
+		//绝对值表示相对于星期一,过去了多少天
+		week = week > 0 ? week - 7 : week;
+		
+		//设置一个重置时间点
+		switch (count.getType()) {
+			//天,重置时间点为当天0点0时0秒,当lastTime时间小于这个值,该重置了
+			case 1:
+				cal.set(year, month, date, 0, 0, 0);
+				break;
+			//周,重置时间点为该周的星期一的0点0时0秒
+			case 2:
+				cal.set(year, month, date, 0, 0, 0);
+				//时间倒退到本周周一的0点0时0秒
+				cal.add(Calendar.DATE, week > 0 ? week - 7 : week);
+				break;
+			//月
+			case 3:
+				//时间倒退到月初一号0点0时0秒
+				cal.set(year, month, 1, 0, 0, 0);
+				break;
+			//年
+			case 4:
+				//时间倒退到一月一号0点0时0秒
+				cal.set(year, 0, 1, 0, 0, 0);
+				break;
+				//永久,getLastTime永远大于refresh,所以永远不会清除count
+			case 5:
+				cal.setTimeInMillis(0);
+				break;
+		}
+		//refresh一般是0,所以如果type是
+		//日,refresh为当天开始时间,now一定大于refresh,每次addCount----reset之后会setLastTime(),没有跨天的话,getLastTime大于refresh,跨天了getLastTime一定小于于refresh
+		//周,
+		
+		//如果type==0,时间不倒退,refresh为当前时间,靠一定清除setCount(0)
+		
+		refresh += cal.getTimeInMillis();
+		long now = System.currentTimeMillis();
+		
+		if (count.getLastTime() < refresh && now >= refresh) {
+			count.setCount(0);
+		}
+	}
+
+
+
+
+
+
