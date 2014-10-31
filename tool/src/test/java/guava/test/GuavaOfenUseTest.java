@@ -114,7 +114,8 @@ public class GuavaOfenUseTest extends TestCase{
 
 		weightedGraph.row(1); // returns a Map mapping v2 to 4, v3 to 20
 		weightedGraph.column(2); // returns a Map mapping v1 to 20, v2 to 5
-		
+		System.out.println("weightedGraph.row(1)" + weightedGraph.row(1));
+		System.out.println("weightedGraph.column(2)" + weightedGraph.column(3));
 		//比较器
 		ArrayList<Foo> fooList = Lists.newArrayList();
 		Foo f1 = new Foo();

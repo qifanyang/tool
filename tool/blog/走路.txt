@@ -1,0 +1,25 @@
+地图划分格子,格子大小为25像素,角色在地图中坐标为格子坐标.
+
+地图中还有个区域的概念,大小为275*185,比格子大,用于通知玩家是否可以看见其它玩家
+
+服务器走路,客户端发送走路方向和步长,服务器收到后走路路径后,根据方向和步长,检查每个格子是否可以行走,
+
+如果路径格子合法,则生成走路路径,走路过程中区域改变才通知客户端人物进入或退出消息,通知范围为区域周围几个区域里的玩家
+
+生成走路路径后,服务器走路timer,从走路路径中取出走路坐标进行走路,每次走路后都会添加一个走路冷却,冷却时间为走路cost时间,注意因为
+服务器有时候会很卡,定时器需要修正玩家走路,公式
+double cost = player.getPrevStep()//上一次走路时间 + player.getCost()//走陆时间花费 - System.currentTimeMillis();//很卡的话,这里可能会小于0
+
+然后cost += newcost//这次走路时间花费   , 如果他们之和仍然小于0,说明太卡了,补时继续走路,直到他们之和大于0,然后更新
+if(time > 0){
+	player.setPrevStep(System.currentTimeMillis());//上一次走路时间
+	player.setCost(time);//走路需要花费时间
+	ManagerPool.cooldownManager.addCooldown(player, CooldownTypes.RUN, null, time);//添加冷却
+}
+
+
+
+
+
+
+
