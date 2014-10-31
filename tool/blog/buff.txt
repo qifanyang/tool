@@ -1,0 +1,135 @@
+buff会修改玩家数据,一般是战斗相关属性,buff和定时任务类似,定时执行任务方法,不同的是buff类型很多,作用效果也很复杂
+
+buff有各种类型,持续时间,持续次数等等,游戏中需要定时更新buff,移除过期buff,有的要移除某些特效,有的要重新计算玩家属性
+
+buff一般作用于玩家,怪物,宠物等游戏中客栈都的实体
+
+buff属性:
+remainTime, 作用间隔时间,timer更新-1秒
+totalTime,持续时间
+totalRemainTime,总剩余持续时间,源于totalTime, -1永远存在,timer更新-1秒, 因为某些状态会改变上面的totalTime
+
+
+
+
+buff配置字段设计:
+
+private int q_buff_id;//BUFF编号
+
+private String q_buff_name;//BUFF名称
+
+private int q_target;//作用目标（1自己，2目标，3自己与目标，4自己和队友,5主人）
+
+private int q_effect_type;//损益类型（0无所谓，1正面BUFF，2负面BUFF,3不受内力盾影响）
+
+.....
+
+buff分类:
+TimeBuff,有持续时间和间隔时间的buff, 每隔一段时间作用一次,直到持续时间结束,用于加血等等
+StateBuff,一次性作用,修改状态,有持续时间但没间隔时间,只在添加和移除时作用一次
+TriggerBuff,在某些事件发生时,触发一下
+
+
+创建buff:
+
+	根据buffId找到buffModel,创建buff对象,用配置初始化该对象,然后添加到玩家身上
+	buff叠加,效果重复选项（1效果叠加，2效果替换，3容量叠加(属性,层数）,4时间叠加，5重复无效）,添加buff要处理该buff存在怎么处理
+
+刷新buff:
+
+	/**
+	 * 计算身上的Buff
+	 *
+	 * @param fighter
+	 */
+	public void countBuff(Fighter fighter) {
+		Buff preBuff = null;
+		try{
+			//遍历buff
+			Buff[] buffs = fighter.getBuffs().toArray(new Buff[0]);
+			boolean recount = false;
+			for (int i = 0; i < buffs.length; i++) {
+				Buff buff = buffs[i];
+				preBuff = buff;
+				if (!fighter.isDie() && buff instanceof TimeBuff) {
+					buff.setRemain(buff.getRemain() - 1000);//单次作用剩余时间
+					buff.setTotalRemainTime(buff.getTotalRemainTime() - 1000);//总的剩余时间
+					//剩余时间为0
+					if (buff.getRemain() == 0) {
+						int result = buff.action(fighter, fighter);//作用数值 0-失败 1-成功 2-移除 3-涉及别的buff移除，需要终止计算
+						//效果结束
+						if (result == 2) {
+							buff.remove(fighter);
+							fighter.getBuffs().remove(buff);
+							if(buff instanceof IBuffExt){
+								((IBuffExt) buff).afterRemove(fighter);
+							}
+							//通知移除buff
+							sendRemoveBuffMessage(fighter, buff);
+							recount = true;
+							continue;
+						} else if(result == 3) {
+							break;
+						} else {
+							//重置剩余时间,buff作用时间间隔
+							buff.setRemain(buff.getTimer());
+						}
+					}
+				}
+	
+				//非永久有效,非永久有效的buff分为下线是否计时
+				if (buff.getTotalTime() != -1) {
+					if (buff.getCount() == 1) {//下线是否计时 0-不计时 1-计时
+						//buff过期
+						if (buff.getStart() + buff.getTotalTime() < System.currentTimeMillis()) {
+							buff.remove(fighter);
+							fighter.getBuffs().remove(buff);
+							if(buff instanceof IBuffExt){
+								((IBuffExt) buff).afterRemove(fighter);
+							}
+							//pk保护buff移除提示
+							if (buff.getModelId() == Global.PROTECT_FOR_KILLED) {
+								MessageUtil.notify_player((Player) fighter, Notifys.NORMAL, ResManager.getInstance().getString("PK保护时间已过，行走PK区域时请小心"));
+								log.error("玩家(" + ((Player) fighter).getId() + ")PK状态为(" + ((Player) fighter).getPkState() + ")挂机状态为(" + PlayerState.AUTOFIGHT.compare(((Player) fighter).getState()) + ")移除和平保护buff因为时间结束");	
+							}else if(buff.getModelId() == Global.PROTECT_IN_NIGHT){
+								log.error("玩家(" + ((Player) fighter).getId() + ")PK状态为(" + ((Player) fighter).getPkState() + ")挂机状态为(" + PlayerState.AUTOFIGHT.compare(((Player) fighter).getState()) + ")移除夜晚和平保护buff因为时间结束");	
+							}else if( (buff.getModelId()>=1401 && buff.getModelId()<=1403) || buff.getModelId()==1411 || buff.getModelId()==1412 ){
+							
+								if(fighter instanceof Player){
+									VipManager.getInstance().removeVipEvent((Player)fighter);
+								}
+							}
+							//通知移除buff
+							sendRemoveBuffMessage(fighter, buff);
+							
+							recount = true;
+						}
+					} else {
+						//TimeBuff上面已经把总剩余时间减去1秒了
+						if(!(buff instanceof TimeBuff)) buff.setTotalRemainTime(buff.getTotalRemainTime() - 1000);
+						if (buff.countTotalRemainTime(fighter) <= 0) {
+							buff.remove(fighter);
+							fighter.getBuffs().remove(buff);
+							if(buff instanceof IBuffExt){
+								((IBuffExt) buff).afterRemove(fighter);
+							}
+							//pk保护buff移除提示
+							if (buff.getModelId() == Global.PROTECT_FOR_KILLED) {
+								MessageUtil.notify_player((Player) fighter, Notifys.NORMAL, ResManager.getInstance().getString("PK保护时间已过，行走PK区域时请小心"));
+							}
+							//通知移除buff
+							sendRemoveBuffMessage(fighter, buff);
+							recount = true;
+						}
+					}
+				}
+			}
+			//重新计算属性
+			if (fighter instanceof Player && recount) {
+				ManagerPool.playerAttributeManager.countPlayerAttribute((Player) fighter, PlayerAttributeType.BUFF);
+			}
+		}catch (Exception e) {
+			if(preBuff!=null) log.error("计算BUFF(" + preBuff.getModelId() + ")后出错!");
+			log.error(e, e);
+		}
+	}
