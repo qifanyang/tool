@@ -1,0 +1,74 @@
+游戏实体:玩家,宠物,怪物,NPC
+
+类设计:它们都有血量,生命等属性(NPC除外),地图信息,模型信息,配置等,所以需要一个抽象类Sprite,这个类包含了基本属性,等级,buff等等各种公共的数据.
+		  玩家和怪物之间最重要的就是战斗,战斗方法的攻击者和被攻击者可以使用Sprite,也可以定义一个Fighter接口,好处是Sprite中可能有许多和战斗无关
+		  的方法,使用Fighter符合接口隔离原则,至少在调用方法的时候,代码提示里面方法很清晰
+		  
+接口隔原则(Interface  Segregation Principle, ISP)：
+使用多个专门的接口，而不使用单一的总接口，即客户端不应该依赖那些它不需要的接口。
+每一个接口应该承担一种相对独立的角色，不干不该干的事，该干的事都要干.
+接口不要太小,太小了会导致接口泛滥,一个类继承一大堆接口.接口太大了使用起来很不方便,比如要新建一个子类,要实现全部接口方法,有些方法根本不会用到,
+使用swing MoushListener的时候,API中还单独实现了个Adapter,游戏里的Fighter相对固定所以就不用写Adapter了.
+
+类结构图
+
+						Sprite
+							|
+							|
+		-----------------------------
+		|			|			|			|
+		|			|			|			|
+    Player  Monster     Pet		  NPC
+	    |			|			|
+		|			|			|
+		--------------------
+					|
+					|
+				Fighter
+
+游戏类型不一样,可能类结构会有一些不同,但大致可以这么设计,一个抽象类用于通用数据描述,一个接口用于战斗相关
+
+
+怪物:
+1.创建,new Monster(),根据配置初始化怪物模型,坐标,技能,然后把怪物放入地图中并在地图中告知怪物进入
+2.死亡,从地图中移除即可
+
+玩家:
+1.创建,玩家注册,新建角色,同怪物初始化,存库
+
+
+
+战斗:
+playerAttackPet
+playerAttackMonster
+playerAttackPlayer
+
+PetAttackPlayer
+PetAttackMonster
+
+MonsterAttackMonster
+MonsterAttackPlayer
+
+因player死了,pet也就无法攻击了,所以Monster不攻击Pet,  Pet也不攻击Pet,  player可以攻击一切,有的战术需要先打死pet
+
+playerAttackMonster攻击流程:playerAttackMonster(Player player, long monsterId, int skillId, int direction)
+首先进行一系列状态检查,冷却,死亡,定身,游泳,技能等等.然后是攻击目标选取,
+技能作用范围形状（1单体，2矩形，3扇形，4圆形）
+作用对象（1自己，2友好目标，3敌对目标，4当前目标，5场景中鼠标的当前坐标点，6主人）
+
+检查完毕后,新建一个攻击timer,放入到当前地图线程中,然后执行统一的attack,执行攻击的时候可能战斗者已经死了,所以还要检查.
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+
