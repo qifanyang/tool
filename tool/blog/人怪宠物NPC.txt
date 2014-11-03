@@ -58,6 +58,45 @@ playerAttackMonster攻击流程:playerAttackMonster(Player player, long monsterId, i
 
 检查完毕后,新建一个攻击timer,放入到当前地图线程中,然后执行统一的attack,执行攻击的时候可能战斗者已经死了,所以还要检查.
 
+执行攻击:
+找到技能模板,攻击点一自身为中心还是以对方为中心,技能作用范围形状.选取攻击目标,并检测是否可以攻击,选出一个fighters列表
+
+战斗情况通知给客服端,包含的和被攻击者的
+攻击者攻击结果:
+	1.开始战斗前,copy一份攻击者的属性
+		FighterInfo attackerinfo = new FighterInfo();
+		attackerinfo.copyFighter(attacker);
+	2.战斗计算完毕后,更新攻击者的属性,变化了并通知客服端
+		//比较变化 发送消息
+		attackerinfo.compareFighter(attacker);
+被攻击者的攻击结果:
+	1.在计算被攻击时,实例化一个攻击结果对象FightResult fightResult = new FightResult();用于反馈给攻击者攻击效果
+
+
+	   
+
+一次人打怪的攻击流程
+	
+遍历被攻击者{
+	if(fighter instanceof Monster){
+		//是否有怪物AI脚本
+		//script.beforeHit(monster, attacker);
+	}
+	
+	//怪物无敌,直接通知这次攻击结果
+	//构建一个ResAttackResultMessage返回个客服端,无敌,伤害.连击伤害.反伤.格挡伤害 都为0
+	
+	//攻击计算
+	1.计算闪避,如果技能不忽略闪避,随机计算闪避是否打中,没打中,伤害.连击伤害.反伤.格挡伤害 都为0
+	2.计算暴击,如果没有暴击buff, 走暴击公式
+	3.计算伤害,技能攻击+技能忽略防御-防御, 如果被攻击者是player,还要计算格挡,减少伤害等--->伤害计算完毕后再检查是否是固定伤害性怪物,固定掉血,前面的伤害计算无效
+	4.打中了,
+	
+
+
+}
+
+
 
 
 
