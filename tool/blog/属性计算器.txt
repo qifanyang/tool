@@ -1,0 +1,21 @@
+玩家有很多属性,任何属性变化了,都需要实时计算攻击,防御,闪避......
+
+引起属性变化的一般都可以归入某个模块,比如装备模块强化了某个装备一定会影响攻击,所以需要重新计算属性
+
+玩家每次只可以操作一个模块,所以每次只需计算一个模块的属性,以模块为单位重新计算属性,例如:
+
+强化了装备--->ManagerPool.playerAttributeManager.countPlayerAttribute(player, PlayerAttributeType.EQUIP, this.getItemModelId());
+
+调用了装备的属性计算器重新计算装备数据--->更新玩家属性map中装备属性---->然后统一重新计算攻击,防御,闪避等等玩家属性
+因为每个模块的攻击力比重不一样,最终的攻击力会用取得所有模块的攻击,然后用一个公式计算出来
+
+在做逻辑开发时,只要涉及到属性变化,都需要调用该模块的属性计算器,如果没有该类型的计算器,就需要新加一个该类型的属性计算器,然后对应在Count*()方法中加上该计算器
+
+计算完毕后,攻击,防御,闪避等等改变了需要通知客服端
+
+属性计算器注册,初始化PlayerAttributeManager时,需要注册所有的属性计算器,使用[类扫描注册]
+
+类设计:
+interface PlayerAttributeCalculator
+enum PlayerAttributeType
+class PlayerAttributeManager
