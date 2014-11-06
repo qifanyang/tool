@@ -33,5 +33,6 @@ public class ModTest {
 		System.out.println(modTest.toString());
 		System.out.println(modTest.hashCode());
 		
+		System.out.println("ANT 调用 java 代码执行结束");
 	}
 }
