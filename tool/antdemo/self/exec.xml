@@ -1,0 +1,14 @@
+<project name="database-build" default="all" basedir=".">
+
+	<property file="${basedir}/db.properties"/>
+	
+	<property name="dump.sql.dir" value="E:/sourcetreerepo/tool/tool/antdemo/self/sqldump" />
+	<property name="dump.database.name" value="test" />
+
+	<target name="all">
+		<echo message="执行命令 ${dump.database.name}>${dump.sql.dir}/${dump.database.name}.sql, ${db.username.system}, ${db.password.system}" />
+		<exec executable="cmd.exe">
+			<arg line="/C start mysqldump.exe -h${db.hostname} -u${db.username.system} -p${db.password.system} ${dump.database.name}>${dump.sql.dir}/${dump.database.name}.sql"/>
+		</exec>
+	</target>
+</project>

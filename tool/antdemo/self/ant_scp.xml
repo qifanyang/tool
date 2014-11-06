@@ -11,10 +11,28 @@
 		<scp file="localfile/myfile.txt" todir="server:helin-server@192.168.1.212:/home/server/test" trust="true"/>
 	</target>
 	
-	<target name="download" description="copy remote server  file to local machine" depends="run">
+	<target name="uploaddir" description="拷贝本地目录中的内容到远端，递归形式，但不在服务器上建立test目录" depends="run">
+		<!-- <scp file="myfile.txt" todir="user:password@somehost:/home/chuck"/> -->
+		<echo message="拷贝本地目录中的内容到远端，递归形式，但不在服务器上建立test目录"></echo>
+		<scp todir="server:helin-server@192.168.1.212:/home/server/test" trust="true">
+			<fileset dir="localfile"/>
+		</scp>
+	</target>
+	
+	<target name="download" description="copy remote server single file to local machine" depends="run">
 		<!-- <scp file="myfile.txt" todir="user:password@somehost:/home/chuck"/> -->
 		<echo message="copy remote server  file to local machine"></echo>
 		<scp file="server:helin-server@192.168.1.212:/home/server/test/myfile.txt" todir="remotefile" trust="true"/>
 	</target>
 
+	<target name="downloaddir" description="拷贝远端目录到本地，将以递归形式操作" depends="run">
+		<!-- <scp file="myfile.txt" todir="user:password@somehost:/home/chuck"/> -->
+		<echo message="拷贝远端目录到本地，将以递归形式操作"></echo>
+		<scp file="server:helin-server@192.168.1.212:/home/server/test/*" todir="remotefile" trust="true"/>
+	</target>
+	
+	<target name="sshexec">
+	      <sshexec host="192.168.1.212" username="server"  password="helin-server"
+	         trust="true" command="cd ~;cd test;ls"/>
+	</target>
 </project>

@@ -448,7 +448,7 @@
           target: db:run-mysql              
          ================================= -->
 	<target name="db:run-mysql" description="--> Launch DB Vendor command line tool">
-		<exec executable="cmd.exe" spawn="true">
+		<exec executable="cmd.exe" output="ant.log">
 			<arg line="/C start mysql.exe --host=${db.hostname} --user=${db.username.system} --password=${db.password.system}"/>
 		</exec>
 	</target>
