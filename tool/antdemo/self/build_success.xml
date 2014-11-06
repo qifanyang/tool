@@ -1,0 +1,14 @@
+<project name="database-build" default="all" basedir=".">
+
+	<property file="${basedir}/db.properties"/>
+	
+	<property name="dump.sql.dir" value="F:/apache-ant-1.9.4/demo" />
+	<property name="dump.database.name" value="test" />
+
+	<target name="all" >
+		<echo message="执行命令 mysqldump.exe -h${db.hostname} -u${db.username.system} -p${db.password.system} ${dump.database.name}>${dump.sql.dir}/${dump.database.name}.sql, ${db.username.system}, ${db.password.system}" />
+		<exec dir="${basedir}" executable="cmd.exe"  vmlauncher="false" searchpath="true">
+			<arg line="/C  mysqldump.exe -h${db.hostname} -u${db.username.system} -p${db.password.system} ${dump.database.name}>${dump.sql.dir}/${dump.database.name}.sql"/>
+		</exec>
+	</target>
+</project>
