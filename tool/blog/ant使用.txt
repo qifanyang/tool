@@ -1,0 +1,52 @@
+官方文档
+http://ant.apache.org/manual/index.html
+
+快速:
+
+下载地址:http://ftp.jaist.ac.jp/pub/apache//ant/binaries/apache-ant-1.9.4-bin.zip
+
+环境变量设置:
+Add the bin directory to your path.
+Set the ANT_HOME environment variable to the directory where you installed Ant. On some operating systems, Ant's startup scripts can guess ANT_HOME (Unix dialects and Windows NT/2000), but it is better to not rely on this behavior.
+Optionally, set the JAVA_HOME environment variable (see the Advanced section below). This should be set to the directory where your JDK is installed.
+
+ANT_HOME=ant安装目录
+path中新加ANT_HOME/bin
+
+在命令窗口输入 ant -version
+输出:
+C:\Users\user>ant -version
+Apache Ant(TM) version 1.9.4 compiled on April 29 2014
+
+<project name="full-build" default="all" basedir=".">有三个属性
+
+default = the default target to use when no target is supplied.
+
+
+切换到到项目所在目录(和build.xml同一目录), 执行ant 默认执行当前目录下的build.xml, 
+执行指定的构建脚本,例如:ant -f build-dev.xml运行不同环境的构建
+
+构建:
+ant 
+
+再次构建:
+ant clean
+ant
+
+以上环境搭建ok
+==================
+
+ant拉取svn代码:
+1.subclipse的子项目svnant里去下载一个svnant,http://subclipse.tigris.org/servlets/ProjectDocumentList?folderID=1731&expandFolder=1731&folderID=0
+2.解压并把所有/lib 下面的所有.jar文件copy到ANTHOME/lib。
+3.现在就可以编写ant取代码的任务了
+
+
+ant部署数据库:
+1.有多个参照数据库,分为两种:一种是全部拷贝包括表结构和数据,另一种是只拷贝表结构
+2.第一步准备好sql后,在远程机器上新建数据库
+
+
+
+
+

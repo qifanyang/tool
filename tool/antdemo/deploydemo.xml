@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--这段ant脚本主要作用就是:自动从SVN库拉最新的代码，编译、并自动部署到测试服务器。
+ 
+其中用到了“antsvn” ，有3个jar包需要配置进去
+-->
+
+
+<!-- wei.songw 2008.3.19 -->
+
+<project basedir="." name="smmail" default="auto">
+    <!--  all properties are in build.properties -->
+    <property file="build.properties" />
+
+    <!--svn本身需要的运行库 -->
+    <path id="svnant.lib">
+        <pathelement location="${svnjavahl.jar}" />
+        <pathelement location="${svnant.jar}" />
+        <pathelement location="${svnClientAdapter.jar}" />
+    </path>
+
+    <!--java EE 1.4 库 -->
+    <path id="javaEE1.4">
+        <fileset dir="${javaEE1.4.lib}">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+
+    <!--项目的classpath库 -->
+    <path id="project.classpath">
+        <pathelement location="${build.dir}" />
+        <fileset dir="${lib.dir}" />
+    </path>
+
+    <!--清理项目任务(干掉下载目录，tomcat原来的部署文件) -->
+    <target name="clear">
+        <delete dir="${work.space}" />
+        <delete dir="${tomcat.home}/work/Catalina/localhost/${ant.project.name}" />
+        <delete dir="${tomcat.home}/webapps/${ant.project.name}" />
+        <delete dir="${tomcat.home}/webapps/${ant.project.name}.war" />
+    </target>
+
+    <!-- load the svn task -->
+    <taskdef name="svn" classname="org.tigris.subversion.svnant.SvnTask" classpathref="svnant.lib" />
+
+    <!--svn同步任务-->
+    <target name="svn" depends="clear">
+        <mkdir dir="${work.space}"/>
+        <svn username="SongWei" password="Song" javahl="false">
+            <checkout url="${urlRepos}" destPath="${work.space}" />
+        </svn>
+    </target>
+
+    <!--编译-->
+    <target name="compile" depends="svn" description="======compile project======">
+        <echo message="compile==========>${ant.project.name}: ${ant.file}" />
+        <mkdir dir="${build.dir}" />
+        
+        <copy includeemptydirs="false" todir="${build.dir}">
+            <fileset dir="${java.source}" excludes="**/*.launch, **/*.java, config/*.*"/>
+        </copy>
+        <copy includeemptydirs="false" todir="${build.dir}">
+            <fileset dir="${java.config}" excludes="**/*.launch, **/*.java"/>
+        </copy>
+        
+        <javac includejavaruntime="true" debug="true" debuglevel="${debuglevel}" destdir="${build.dir}" source="${source}" target="${target}" encoding="utf-8">
+            <src path="${java.source}" />
+            <exclude name="config/"/>
+            <classpath>
+                <path refid="project.classpath">
+                </path>
+                <path refid="javaEE1.4">
+                </path>
+            </classpath>
+        </javac>
+
+        <javac debug="true" debuglevel="${debuglevel}" destdir="${build.dir}" source="${source}" target="${target}" encoding="utf-8">
+            <src path="${java.config}" />
+        </javac>    
+
+    </target>
+
+    <!--压缩，打包-->
+    <target name="war" depends="compile" description="======compress j2ee war file======">
+        <mkdir dir="${dist.dir}" />
+        <!--compress j2ee war file-->
+        <war destfile="${war.file}" webxml="${web.dir}/WEB-INF/web.xml">
+            <fileset dir="${web.dir}" />
+            <classes dir="${build.dir}" />
+            <lib dir="${lib.dir}" />
+        </war>
+    </target>
+    
+    <!--shutdowntomcat-->
+    <target name="shutdowntomcat" description="========shutdowntomcat===========">
+        <exec executable="${tomcat.home}/bin/shutdown.sh" failonerror="false"></exec>
+        <sleep seconds="10"/>
+    </target>
+    
+    <!--startuptomcat-->
+    <target name="startuptomcat" description="========startuptomcat===========">
+        <sleep seconds="5"/>
+        <exec executable="${tomcat.home}/bin/startup.sh" failonerror="false"></exec>
+    </target>
+
+    <!--部署到tomcat下面克-->
+    <target name="deploy" depends="war">
+        <copy file="${war.file}" todir="${tomcat.home}/webapps" />
+    </target>
+    
+    <!--全自动无敌部署，启动关闭tomcat-->
+    <target name="auto" depends="shutdowntomcat,deploy,startuptomcat">
+        <echo message="DONE!!!!" />
+    </target>
+</project>
+
+<!--
+下面是build.xml指定的properties文件，需要和build.xml放在同一个目录下面
+需要指定work.space（svn拉下来代码的存放，已经编译，打包用的临时目录）
+tomcat.home（tomcat服务器的根目录,如果是其他服务器，需要修改对应项）
+===============================================
+build.version=1.0.0
+svnant.jar=/usr/java/svn/svnant.jar
+svnClientAdapter.jar=/usr/java/svn/svnClientAdapter.jar
+svnjavahl.jar=/usr/java/svn/svnjavahl.jar
+javaEE1.4.lib=/usr/javaEE-1.4
+debuglevel=source,lines
+target=1.6
+source=1.6
+work.space=/home/gmail/workspace
+dist.dir=${work.space}
+build.dir=${work.space}/WebRoot/WEB-INF/classes
+lib.dir=${work.space}/WebRoot/WEB-INF/lib
+java.source=${work.space}/src
+java.config=${work.space}/src/config
+web.dir=${work.space}/WebRoot
+resource.dir=${work.space}/resources
+tomcat.home=/home/gmail/tomcat6
+war.file=${dist.dir}/${ant.project.name}.war
+urlRepos=svn://192.168.1.100/product/SMMAIL/Develop
+-->
