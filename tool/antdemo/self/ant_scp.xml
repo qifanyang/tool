@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project name="ant_scp" default="run" basedir=".">
+	<target name="run">
+		<echo message="run ant_scp"></echo>
+	</target>
+
+	<target name="upload" description="copy file to remote server " depends="run">
+		<!-- <scp file="myfile.txt" todir="user:password@somehost:/home/chuck"/> -->
+		<echo message="copy file to remote server"></echo>
+		<scp file="localfile/myfile.txt" todir="server:helin-server@192.168.1.212:/home/server/test" trust="true"/>
+	</target>
+	
+	<target name="download" description="copy remote server  file to local machine" depends="run">
+		<!-- <scp file="myfile.txt" todir="user:password@somehost:/home/chuck"/> -->
+		<echo message="copy remote server  file to local machine"></echo>
+		<scp file="server:helin-server@192.168.1.212:/home/server/test/myfile.txt" todir="remotefile" trust="true"/>
+	</target>
+
+</project>

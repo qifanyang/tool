@@ -8,7 +8,7 @@
 	<property name="dist" location="dist" />
 
 	<target name="compile">
-		<javac destdir="${build}" srcdir="${src}"></javac>
+		<javac destdir="${build}" srcdir="${src}" includeantruntime="true"></javac>
 	</target>
 
 	<target name="jar" depends="compile">
@@ -21,13 +21,13 @@
 
 	<target name="run1" depends="jar">
 		<!-- <java fork="true" maxmemory="64m" jar="test.jar"> 执行jar,在不同jvm里面执行 -->
-		<java  classname="ModTest">
+		<java classname="ModTest">
 			<!-- JVM args ignored when same JVM is used. -->
 			<classpath path="${run.classpath}"></classpath>
 			<jvmarg line="${Search.JVM.extra.args}" />
 			<arg value="Ant" />
 		</java>
-		<sleep seconds="10" /><!-- 挂起一个任务 -->
+		<sleep seconds="2" /><!-- 挂起一个任务 -->
 	</target>
 
 	<target name="run" depends="run1">

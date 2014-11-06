@@ -32,7 +32,12 @@ public class ModTest {
 		System.out.println(System.identityHashCode(modTest));
 		System.out.println(modTest.toString());
 		System.out.println(modTest.hashCode());
-		
+		System.out.println("sleep 5 seconds");
+		try{
+			Thread.sleep(5000);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 		System.out.println("ANT 调用 java 代码执行结束");
 	}
 }
