@@ -1,0 +1,30 @@
+<project name="database-build" default="init" basedir=".">
+
+	<property file="${basedir}/db.properties" />
+
+	<property name="dump.sql.dir"
+		value="E:/sourcetreerepo/tool/tool/antdemo/self/sqldump" />
+	<property name="dump.database.name" value="test" />
+
+	<fileset id="mysql.class.fs" dir="${lib.dir}">
+		<include name="mysql-connector-java-5.1.16-bin.jar" />	
+	</fileset>
+	<path id="mysql.class.path">
+		<fileset refid="mysql.class.fs"/>
+	</path>
+	<path id="db.lib.path">
+		<path refid="mysql.class.path" />
+	</path>
+	
+	<target name="init">
+		<echo message="mysql备份还原"></echo>
+	</target>
+
+	<target name="db:allinone" depends="init"
+		description="执行所有sql">
+		<echo>执行所有sql,创建数据库</echo>
+		<sql driver="${db.driver}" url="${db.url.system}" userid="${db.username.system}"
+			password="${db.password.system}" classpathref="db.lib.path"
+			src="${filtered.sql.dir}/create-database.sql" delimiter=";" />
+	</target>
+</project>

@@ -13,6 +13,7 @@
 		<echo message="执行命令 ${dump.database.name}>${dump.sql.dir}/${dump.database.name}.sql, ${db.username.system}, ${db.password.system}" />
 		<exec executable="cmd.exe">
 			<!-- dump命令不能从Eclipse里面执行,mysqldump分割参数会出错-->
+			<!-- mysqldump -A>all.sql 导出所有的数据库到一个sql文件中 -->
 			<arg line="/C  mysqldump.exe  -h${db.hostname} -u${db.username.system} -p${db.password.system}  ${dump.database.name} > ${dump.sql.dir}/${dump.database.name}.sql"/>
 		</exec>
 	</target>
