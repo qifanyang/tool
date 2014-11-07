@@ -2,7 +2,7 @@
 
 	<property file="${basedir}/db.properties"/>
 	
-	<property name="dump.sql.dir" value="F:/apache-ant-1.9.4/demo" />
+	<property name="dump.sql.dir" value="E:/sourcetreerepo/tool/tool/antdemo/self/sqldump" />
 	<property name="dump.database.name" value="test" />
 
 	<target name="all" >

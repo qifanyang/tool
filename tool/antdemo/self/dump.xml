@@ -8,7 +8,8 @@
 	<target name="all">
 		<echo message="执行命令 ${dump.database.name}>${dump.sql.dir}/${dump.database.name}.sql, ${db.username.system}, ${db.password.system}" />
 		<exec executable="cmd.exe">
-			<arg line="/C start mysqldump.exe -h${db.hostname} -u${db.username.system} -p${db.password.system} ${dump.database.name}>${dump.sql.dir}/${dump.database.name}.sql"/>
+			<!-- dump命令不能从Eclipse里面执行,mysqldump分割参数会出错-->
+			<arg line="/C  mysqldump.exe  -h${db.hostname} -u${db.username.system} -p${db.password.system}  ${dump.database.name} > ${dump.sql.dir}/${dump.database.name}.sql"/>
 		</exec>
 	</target>
 </project>
