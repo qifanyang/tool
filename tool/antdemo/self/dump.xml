@@ -1,15 +1,28 @@
-<project name="database-build" default="all" basedir=".">
+<project name="database-build" default="init" basedir=".">
 
 	<property file="${basedir}/db.properties"/>
 	
 	<property name="dump.sql.dir" value="E:/sourcetreerepo/tool/tool/antdemo/self/sqldump" />
 	<property name="dump.database.name" value="test" />
 
-	<target name="all">
+	<target name="init">
+		<echo message="mysql备份还原"></echo>
+	</target>
+	
+	<target name="dump">
 		<echo message="执行命令 ${dump.database.name}>${dump.sql.dir}/${dump.database.name}.sql, ${db.username.system}, ${db.password.system}" />
 		<exec executable="cmd.exe">
 			<!-- dump命令不能从Eclipse里面执行,mysqldump分割参数会出错-->
 			<arg line="/C  mysqldump.exe  -h${db.hostname} -u${db.username.system} -p${db.password.system}  ${dump.database.name} > ${dump.sql.dir}/${dump.database.name}.sql"/>
 		</exec>
 	</target>
+
+	<target name="source">
+		<echo message="执行命令 ${dump.database.name}>${dump.sql.dir}/${dump.database.name}.sql, ${db.username.system}, ${db.password.system}"/>
+		<exec executable="cmd.exe">
+			<!-- dump命令不能从Eclipse里面执行,mysqldump分割参数会出错-->
+			<arg line="/C  mysql.exe  -h${db.hostname} -u${db.username.system} -p${db.password.system}  ${dump.database.name} &lt; ${dump.sql.dir}/${dump.database.name}.sql"/>
+		</exec>
+	</target>
+
 </project>
