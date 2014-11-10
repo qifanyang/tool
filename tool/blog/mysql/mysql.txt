@@ -1,0 +1,20 @@
+mysql进入:
+
+查看版本:
+$ rpm -qa|grep mysql 
+>select version()
+>status
+
+
+查看变量:
+>show variables like "%max%";
+
+开启慢日志查询,重启后失效:
+> set global slow_query_log=1;
+
+
+查看状态:
+> show status like "%max%";
+
+//比如查询最大连接数
+

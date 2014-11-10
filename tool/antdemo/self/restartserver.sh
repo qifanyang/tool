@@ -1,8 +1,8 @@
 [server@localhost pgame_ydjd]$ cat restartGame.sh 
 . .lib.sh
-#ÏîÄ¿Ä¿Â¼
+#é¡¹ç›®ç›®å½•
 projectHome="/home/server/sanguo/pgame_ydjd"
-#Êı¾İ¿âÅäÖÃ
+#æ•°æ®åº“é…ç½®
 mysqlHost=db.webgame.com
 mysqlUser=root
 mysqlPasswd=liumang
@@ -16,7 +16,7 @@ then
    test -d $projectHome/jar$server_version 
    if [ $? != 0 ]
    then
-		showRed "$server_version°æ±¾²»´æÔÚ"
+		showRed "$server_versionç‰ˆæœ¬ä¸å­˜åœ¨"
 		exit 1
    fi
 fi
@@ -32,43 +32,45 @@ else
    kill $PID
 fi
 
+#æ›´æ–°,å¦‚æœrestartGame.sh ä¼ å…¥äº†å‚æ•°server_version,åˆ™å¯»æ‰¾jar+server_version, é‡Œé¢sqlæœ‰æ•°æ®åº“é…ç½®çš„è¯æ›´æ–°é…ç½®,
 if [[ $1 != "" ]]
 then
    server_version=$1
-   echo "-------------------------------¸üĞÂ·şÎñÆ÷--------------------------"
-   echo "¸üĞÂÏµÍ³ÅäÖÃÊı¾İ"
+   echo "-------------------------------æ›´æ–°æœåŠ¡å™¨--------------------------"
+   echo "æ›´æ–°ç³»ç»Ÿé…ç½®æ•°æ®"
    test -f $projectHome/jar$server_version/sql/pgame_system.sql 
    if [ $? != 0 ]
    then
-		echo "$projectHome/jar$server_version/sql/pgame_system.sql²»´æÔÚ,²»ĞèÒª¸üĞÂÏµÍ³ÅäÖÃÊı¾İ"
+		echo "$projectHome/jar$server_version/sql/pgame_system.sqlä¸å­˜åœ¨,ä¸éœ€è¦æ›´æ–°ç³»ç»Ÿé…ç½®æ•°æ®"
    else
 		$mysql -e "drop database $db"
 		$mysql -e "create database $db"
 		$mysql $db < $projectHome/jar$server_version/sql/pgame_system.sql
-		showGreen "¸üĞÂÏµÍ³Êı¾İÍê³É"
+		showGreen "æ›´æ–°ç³»ç»Ÿæ•°æ®å®Œæˆ"
    fi
-   echo "ĞŞ¸ÄÓÃ»§±í"
+   #ç”¨æˆ·è¡¨ç»“æ„å‘ç”Ÿäº†å˜åŒ–,ä¿®æ”¹è„šæœ¬æ”¾å…¥modify.sqlä¸­
+   echo "ä¿®æ”¹ç”¨æˆ·è¡¨"
    test -f $projectHome/jar$server_version/sql/modify.sql
    if [ $? != 0 ]
    then
-		echo "$projectHome/jar$server_version/sql/modify.sql²»´æÔÚ,²»ĞèÒª¸üĞÂÓÃ»§±í"
+		echo "$projectHome/jar$server_version/sql/modify.sqlä¸å­˜åœ¨,ä¸éœ€è¦æ›´æ–°ç”¨æˆ·è¡¨"
    else
 		$mysql $dp_user < $projectHome/jar$server_version/sql/modify.sql
-		showGreen "ĞŞ¸ÄÓÃ»§±íÍê³É"
+		showGreen "ä¿®æ”¹ç”¨æˆ·è¡¨å®Œæˆ"
    fi
-   echo "¸üĞÂconfig.props"
-   test -f $projectHome/jar$server_version/config.props || exitBy "$projectHome/jar$server_version/config.propsÅäÖÃ²»´æÔÚ"
+   echo "æ›´æ–°config.props"
+   test -f $projectHome/jar$server_version/config.props || exitBy "$projectHome/jar$server_version/config.propsé…ç½®ä¸å­˜åœ¨"
    cp $projectHome/jar$server_version/config.props $projectHome/
-   showGreen "¸üĞÂconfig.propsÍê³É"
-   echo "¸üĞÂjar"
+   showGreen "æ›´æ–°config.propså®Œæˆ"
+   echo "æ›´æ–°jar"
    rm -rf $projectHome/jar/*
    cp $projectHome/jar$server_version/* $projectHome/jar/
-   showGreen "¸üĞÂjarÍê³É"
-   showGreen "-------------------------------¸üĞÂ·şÎñÆ÷Íê³É--------------------------"
+   showGreen "æ›´æ–°jarå®Œæˆ"
+   showGreen "-------------------------------æ›´æ–°æœåŠ¡å™¨å®Œæˆ--------------------------"
 else
-  echo  "------------------------------ÖØÆô·şÎñÆ÷-------------------------"
+  echo  "------------------------------é‡å¯æœåŠ¡å™¨-------------------------"
 fi
- echo "-----------------------------¿ªÊ¼Æô¶¯·şÎñÆ÷--------------------------"
+ echo "-----------------------------å¼€å§‹å¯åŠ¨æœåŠ¡å™¨--------------------------"
 
 export JAVA_HOME="/opt/jdk1.6.0_20"
 

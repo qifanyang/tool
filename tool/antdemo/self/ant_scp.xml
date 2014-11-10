@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <project name="ant_scp" default="run" basedir=".">
+	
 	<target name="run">
 		<echo message="run ant_scp"></echo>
 	</target>
@@ -35,4 +36,18 @@
 	      <sshexec host="192.168.1.212" username="server"  password="helin-server"
 	         trust="true" command="cd ~;cd test;ls"/>
 	</target>
+	
+	<target name="httpsshexec" depends="proxy">
+	      <sshexec host="" username=""  password="helin-server" passphrase="helin-server"
+	      	keyfile="E:/hthy_yxgc" trust="true" command="cd ~;ls" />
+	</target>
+	
+	<target name="proxy" >
+	  	<property name="proxy.host" value=""/>
+	    <property name="proxy.port" value=""/>
+	    <property name="proxy.user" value=""/>
+	    <property name="proxy.pass" value=""/>
+	    <setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}"
+	      proxyuser="${proxy.user}" proxypassword="${proxy.pass}" />
+	  </target>
 </project>
