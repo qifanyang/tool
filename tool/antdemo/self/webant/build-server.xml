@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--外网打包-->
+<project name="backend" default="init" basedir=".">
+	<property file="build.properties"/>
+
+	<target name="init">
+		<echo message="build ${ant.project.name} "></echo>
+		<mkdir dir="${server.upload.classes}/WEB-INF/classes"/>
+		<antcall target="process" />
+	</target>
+	
+	<target name="process">
+		<antcall target="copyclasses" />
+	</target>
+	
+	<target name="copyclasses" description="拷贝class和配置" depends="clean">
+		<echo message="${server.upload.classes}/${app.website}"/>
+		<!-- copy web app files to classes file -->
+		<copy todir="${server.upload.classes}">
+			<fileset dir="../${app.website}/WebContent">
+			    <include name="**/*.*"/>
+				<exclude name="**/*.jar"/>
+			    <exclude name="**/*.svn"/>
+				<exclude name="**/*.git"/>
+				<exclude name="**/app-core.properties"/>
+				<!-- jdbc.properties和login.properties开发环境和外网环境不一样,这里不拷贝-->
+				<exclude name="**/jdbc.properties"/>
+				<exclude name="**/login.properties"/>
+			</fileset>
+		</copy>
+	
+		<!--拷贝外网配置-->
+		<copy todir="${server.upload.classes}/WEB-INF/classes">
+			<fileset dir="${proudce.config}">
+			</fileset>
+		</copy>
+		
+	</target>
+	
+	<target name="war" description="打包外网war" depends="copyclasses">
+		<war destfile="${server.upload.war}/${ant.project.name}.war" webxml="${server.upload.classes}/WEB-INF/web.xml">
+		  <fileset dir="${server.upload.classes}">
+		  </fileset>
+		  	<!--
+		  	<exclude name="**/*.class"/>
+		  	-->
+		<!--
+		  <classes dir="${server.upload.classes}/WEB-INF/classes"/>
+		  -->
+		</war>
+	</target>
+	
+	<target name="clean" description="删除拷贝的class和配置,不删除文件夹本身">
+		<!--删除拷贝的class和配置,不删除文件夹本身-->
+				<delete includeemptydirs="true">
+				    <fileset dir="${server.upload.classes}" includes="**/*"/>
+				 </delete>
+				<delete includeemptydirs="true">
+				    <fileset dir="${server.upload.war}" includes="**/*"/>
+				</delete>
+	</target>
+	
+</project>

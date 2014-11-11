@@ -71,6 +71,7 @@ public class Sftp {
 						if (ii - s > 0) {
 							cmds.addElement(new String(buf, s, ii - s));
 						}
+						//多个空格,这里直接跳过
 						while (ii < i) {
 							if (buf[ii] != ' ')
 								break;
