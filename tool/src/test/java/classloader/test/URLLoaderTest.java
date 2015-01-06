@@ -20,7 +20,7 @@ public class URLLoaderTest {
 		Thread.sleep(1);
 		ClassLoader myloader1 = new URLClassLoader(new URL[] { url });
 		System.out.println(myloader1.getParent());
-		Class c1 = myloader1.loadClass("model.UpdateClass");
+		Class<?> c1 = myloader1.loadClass("model.UpdateClass");
 		System.out.println("----------");
 		UpdateClass t1 = (UpdateClass) c1.newInstance();
 		t1.say();

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="deploy" name="打包并部署到测试服" basedir=".">
+	<!-- \\192.168.0.54\yangqifan 测试目录   共享目录具有读取和写入权限才可以-->
+	<property name="src.dir" value="${basedir}/src" />
+	<property name="classes.dir" value="${basedir}/bin" />
+	<property name="lib" location="${basedir}/lib" />
+	<!-- 部署位置 -->
+	<property name="server.home" location="\\192.168.0.54\yangqifan" />
+
+	<target name="deploy">
+		<jar destfile="${server.home}/DragonServer.jar">
+			<manifest>
+				<attribute name="Main-Class" value="application.GameApplication"/>
+				<attribute name="Class-Path" value=". DragonServer_lib/aopalliance-1.0.jar DragonServer_lib/spring-data-mongodb-cross-store-1.5.0.RELEASE.jar DragonServer_lib/spring-data-mongodb-log4j-1.5.0.RELEASE.jar DragonServer_lib/mongo-java-driver-2.12.2.jar DragonServer_lib/commons-lang3-3.3.2.jar DragonServer_lib/fastjson-1.1.41.jar DragonServer_lib/spring-data-commons-1.8.1.RELEASE.jar DragonServer_lib/net_protol.jar DragonServer_lib/spring-data-mongodb-1.5.1.RELEASE.jar DragonServer_lib/spring-framework-4.0.6.RELEASE.jar DragonServer_lib/commons-codec-1.9.jar DragonServer_lib/commons-logging-1.2.jar DragonServer_lib/slf4j-api-1.7.7.jar DragonServer_lib/slf4j-simple-1.7.7.jar DragonServer_lib/aspectj-1.8.1.jar DragonServer_lib/commons-io-2.4.jar DragonServer_lib/mina-2.0.9.jar DragonServer_lib/log4j-core-2.1.jar DragonServer_lib/log4j-api-2.1.jar DragonServer_lib/log4j-1.2-api-2.1.jar"/>
+			</manifest>
+			<fileset dir="${classes.dir}"/>
+		</jar>
+		
+		<delete dir="${server.home}/DragonServer_lib"/>
+		<mkdir dir="${server.home}/DragonServer_lib"/>
+			
+		<copy todir="${server.home}/DragonServer_lib">
+			<fileset dir="${lib}">
+				<exclude name="netty-all-4.0.24.Final.jar"/>
+			</fileset>
+		</copy>
+
+	</target>
+					
+	<target name="clean" description="删除拷贝的文件">
+			<delete dir="${server.home}/DragonServer_lib"/>	
+			<delete file="${server.home}/DragonServer.jar"/>	
+	</target>				
+</project>

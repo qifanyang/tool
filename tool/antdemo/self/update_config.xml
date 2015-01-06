@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<project default="run_CfgBuilder" name="更新excel->执行excel_csv.bat->拷贝CSV到项目->执行CfgBuilder" basedir="D:\SVN\程序\Server\配置表">
+	
+	<property name="excel_csv_cmd" value="${basedir}\excel_csv.bat" />
+	<!-- svn安装目录-->
+	<property name="svn_cmd" value="D:\Program Files\TortoiseSVN\bin\TortoiseProc.exe" />
+	<!-- excel本地目录-->
+	<property name="svn_excel_path" value="${basedir}\数据配置档excel" />
+	<!-- java项目根目录-->
+	<property name="game_project_path" value="D:\workspace\GameServer" />
+	<!-- java项目gameConfig -->
+	<property name="game_config_path" value="${game_project_path}\gameConfig" />
+	
+	<property name="run.classpath" value="${game_project_path}\bin"></property>
+	<property name="Search.JVM.extra.args" value="-Xincgc"></property>
+
+	<target name="svnupdate" description="运行svnupdate, 更新excel配置">
+		<echo message="执行命令> ${svn_cmd} /command:update /path:${svn_excel_path}"/>
+		<exec executable="cmd.exe">
+			<arg line="/C  '${svn_cmd}' /command:update /path:${svn_excel_path} /closeonend:3 "/>
+		</exec>
+	</target>
+
+	<target name="run_excel_csv_bat" description="运行excel_csv.bat,转换excel到csv并验证" depends="svnupdate">
+		<echo message="执行命令> ${excel_csv_cmd}"/>
+		<exec executable="cmd.exe">
+			<arg line="/C  '${excel_csv_cmd}'"/>
+		</exec>
+	</target>
+	
+	<!--depends="run_excel_csv_bat"-->
+	<target name="copy2workspace" description="拷贝生成的配置到工作目录" depends="run_excel_csv_bat">
+		<copy todir="${game_config_path}" overwrite="true">
+				<fileset dir="${basedir}\数据配置档csv">
+				</fileset>
+		</copy>
+	</target>
+	
+	<target name="clean_gameconfig">
+		<echo message="删除gameconfig"/>
+		<delete>
+			 <fileset dir="${game_config_path}" includes="**/*"/>
+		</delete>
+	</target>
+	
+	<target name="run_CfgBuilder" depends="copy2workspace">
+		<!-- <java fork="true" maxmemory="64m" jar="test.jar"> 执行jar,在不同jvm里面执行 -->
+		<java classname="com.game.cfg.CfgBuilder">
+			<!-- JVM args ignored when same JVM is used. -->
+			<classpath path="${run.classpath}"></classpath>
+			<jvmarg line="${Search.JVM.extra.args}" />
+			<arg value="Ant" />
+		</java>
+	</target>
+	
+	
+</project>
